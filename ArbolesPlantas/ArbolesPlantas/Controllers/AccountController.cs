@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using ArbolesPlantas.Models;
+using ProyectoFinanzas.Models;
 
-namespace ArbolesPlantas.Controllers
+namespace ProyectoFinanzas.Controllers
 {
     [Authorize]
     public class AccountController : Controller
