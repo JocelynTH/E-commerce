@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ProyectoFinanzas.Models.ordenPago>
+
+@{
+    ViewBag.Title = "Finanzas";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Historial Pago a Proveedores</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Número de Factura")
+        </th>
+        <th>
+            @Html.DisplayName("Fecha de Pago")
+        </th>
+        <th>
+            @Html.DisplayName("Cantidad a Pagar")
+        </th>
+        <th>
+            @Html.DisplayName("Cantidad Restante")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Facturas.Id)
+        </td>
+        <td>
+            @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.fecha_pago))
+        </td>
+        <td>
+            @Convert.ToDecimal(item.cantidad_pago).ToString("#,##0.00")
+        </td>
+        <td>
+            @Convert.ToDecimal(item.cantidad_restante).ToString("#,##0.00")
+        </td>
+        <td>
+            @switch (item.status)
+            {
+                case 1:
+                    @Html.Label("Pendiente", new { @Class = "alert alert-warning" });
+                    break;
+                case 2:
+                    @Html.Label("Rechazado", new { @Class = "alert alert-danger" });
+                    break;
+                case 3:
+                    @Html.Label("Aprobado", new { @Class = "alert alert-success" });
+                    break;
+            }
+        </td>
+
+    </tr>
+}
+
+</table>

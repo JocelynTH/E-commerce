@@ -1,0 +1,67 @@
+﻿@model ProyectoFinanzas.Models.DetalleProducto
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DetalleProducto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaAlta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaAlta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.areaSolicita)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.areaSolicita)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.precio_anterior)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precio_anterior)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.precio_nuevo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precio_nuevo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Productos.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Productos.nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

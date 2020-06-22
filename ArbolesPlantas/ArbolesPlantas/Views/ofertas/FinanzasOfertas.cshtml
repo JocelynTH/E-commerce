@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ProyectoFinanzas.Models.ofertas>
+@{
+    ViewBag.Title = "FinanzasOfertas";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>FinanzasOfertas</h2>
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("ID Oferta")
+            
+        </th>
+        <th>
+            @Html.DisplayName("Nombre del Producto")
+            
+        </th>
+        <th>
+            @Html.DisplayName("Nombre de Oferta")
+            
+        </th>
+        <th>
+            @Html.DisplayName("Fecha de Alta")
+            
+        </th>
+        <th>
+            @Html.DisplayName("Fecha Límite")
+            
+        </th>
+        <th>
+            @Html.DisplayName("Porcentaje de Descuento %")
+            
+        </th>
+        <th>
+            @Html.DisplayName("Status")
+            
+        </th>
+        <th>
+            @Html.DisplayName("Acciones")
+            
+        </th>
+
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Productos.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombreOferta)
+        </td>
+        <td>
+            @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.fechaAlta))
+        </td>
+        <td>
+            @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.fechaBaja))
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.porcentajeDescuento)
+        </td>
+        <td>
+            @switch (item.status)
+            {
+                case 1:
+                    @Html.Label("Pendiente", new { @Class = "alert alert-warning" });
+                    break;
+                case 2:
+                    @Html.Label("Rechazado", new { @Class = "alert alert-danger" });
+                    break;
+                case 3:
+                    @Html.Label("Aprobado", new { @Class = "alert alert-success" });
+                    break;
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Aprobar", "AprobarStatus", new { id = item.Id }) |
+            @Html.ActionLink("Rechazar", "RechazarStatus", new { id = item.Id })
+        </td>
+    </tr>
+    }
+
+</table>
+
+<button class="alert-info">
+    @Html.ActionLink("Ver Historial de Ofertas", "HistorialOfertas")
+</button>

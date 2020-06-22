@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ProyectoFinanzas.Models.presupuesto>
+
+@{
+    ViewBag.Title = "Finanzas";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Aprobar Presupuestos</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("ID Solicitud")
+        </th>
+        <th>
+            @Html.DisplayName("ID Factura")
+        </th>
+        <th>
+            @Html.DisplayName("Fecha Alta")
+        </th>
+        <th>
+            @Html.DisplayName("Área que solicita")
+        </th>
+        <th>
+            @Html.DisplayName("Presupuesto Requerido")
+        </th>
+        <th>
+            @Html.DisplayName("Presupuesto Asignado")
+        </th>
+        <th>
+            @Html.DisplayName("Presupuesto Actual")
+        </th>
+
+        <th>
+            @Html.DisplayName("status")
+        </th>
+
+        <th>
+            @Html.DisplayName("Acciones")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_factura)
+        </td>
+        <td>
+            @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.fechaAlta))
+            <!--Html.DisplayFor(modelItem => item.fechaAlta)-->
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.areaSolicita)
+        </td>
+        <td>
+            @Convert.ToDecimal(item.total).ToString("#,##0.00")
+        </td>
+        <td>
+            @Convert.ToDecimal(item.presupuestoInicial).ToString("#,##0.00")
+        </td>
+        <td>
+            @Convert.ToDecimal(item.presupuestoActual).ToString("#,##0.00")
+        </td>
+        <td>
+            @switch (item.status)
+            {
+                case 1:
+                    @Html.Label("Pendiente", new { @Class = "alert alert-warning" });
+                    break;
+                case 2:
+                    @Html.Label("Rechazado", new { @Class = "alert alert-danger" });
+                    break;
+                case 3:
+                    @Html.Label("Aprobado", new { @Class = "alert alert-success" });
+                    break;
+            }
+        </td>
+
+        <td>
+            @Html.ActionLink("Aprobar", "AprobarStatus", new { id = item.Id }) |
+            @Html.ActionLink("Rechazar", "RechazarStatus", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+<br />
+<button class="alert-info">
+    @Html.ActionLink(" Ver Historial Productos", "HistorialPresupuestos")
+</button>

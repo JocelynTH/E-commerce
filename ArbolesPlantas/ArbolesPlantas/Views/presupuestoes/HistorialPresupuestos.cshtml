@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ProyectoFinanzas.Models.presupuesto>
+
+@{
+    ViewBag.Title = "HistorialPresupuestos";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Historial Presupuestos</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("ID Solicitud")
+        </th>
+        <th>
+            @Html.DisplayName("Fecha Alta")
+        </th>
+        <th>
+            @Html.DisplayName("Área que solicita")
+        </th>
+        <th>
+            @Html.DisplayName("Presupuesto Requerido")
+        </th>
+        <th>
+            @Html.DisplayName("Presupuesto Asignado")
+        </th>
+        <th>
+            @Html.DisplayName("Presupuesto Actual")
+        </th>
+        <th>
+            @Html.DisplayName("status")
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.fechaAlta))
+            <!--Html.DisplayFor(modelItem => item.fechaAlta)-->
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.areaSolicita)
+        </td>
+        <td>
+            @Convert.ToDecimal(item.total).ToString("#,##0.00")
+        </td>
+        <td>
+            @Convert.ToDecimal(item.presupuestoInicial).ToString("#,##0.00")
+        </td>
+        <td>
+            @Convert.ToDecimal(item.presupuestoActual).ToString("#,##0.00")
+        </td>
+        <td>
+            @switch (item.status)
+            {
+                case 1:
+                    @Html.Label("Pendiente", new { @Class = "alert alert-warning" });
+                    break;
+                case 2:
+                    @Html.Label("Rechazado", new { @Class = "alert alert-danger" });
+                    break;
+                case 3:
+                    @Html.Label("Aprobado", new { @Class = "alert alert-success" });
+                    break;
+            }
+        </td>
+    </tr>
+}
+
+</table>
