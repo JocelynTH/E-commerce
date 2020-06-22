@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -101,6 +101,18 @@
           <Property Name="subtotal" Type="float" Nullable="false" />
           <Property Name="motivo" Type="varchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="DetalleProducto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_producto" Type="int" Nullable="false" />
+          <Property Name="fechaAlta" Type="date" Nullable="false" />
+          <Property Name="areaSolicita" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="precio_anterior" Type="real" Nullable="false" />
+          <Property Name="precio_actual" Type="real" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="devolucion">
           <Key>
             <PropertyRef Name="Id" />
@@ -145,6 +157,19 @@
           <Property Name="id_factura" Type="int" Nullable="false" />
           <Property Name="cantidad_pago" Type="float" Nullable="false" />
           <Property Name="cantidad_restante" Type="float" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="presupuesto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_factura" Type="int" Nullable="false" />
+          <Property Name="fechaAlta" Type="date" Nullable="false" />
+          <Property Name="areaSolicita" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="total" Type="real" Nullable="false" />
+          <Property Name="presupuestoInicial" Type="real" Nullable="false" />
+          <Property Name="presupuestoActual" Type="real" Nullable="false" />
           <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Productos">
@@ -292,6 +317,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DetalleProducto_Productos">
+          <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+          <End Role="DetalleProducto" Type="Self.DetalleProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetalleProducto">
+              <PropertyRef Name="id_producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_devolucion_Facturas">
           <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
           <End Role="devolucion" Type="Self.devolucion" Multiplicity="*" />
@@ -340,6 +377,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_presupuesto_Facturas">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+          <End Role="presupuesto" Type="Self.presupuesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="presupuesto">
+              <PropertyRef Name="id_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Productos_Proveedores">
           <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="1" />
           <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
@@ -362,10 +411,12 @@
           <EntitySet Name="Compras" EntityType="Self.Compras" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="detalleCompra" EntityType="Self.detalleCompra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetalleFactura" EntityType="Self.DetalleFactura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleProducto" EntityType="Self.DetalleProducto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="devolucion" EntityType="Self.devolucion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ofertas" EntityType="Self.ofertas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ordenPago" EntityType="Self.ordenPago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="presupuesto" EntityType="Self.presupuesto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Compras_Proveedores" Association="Self.FK_Compras_Proveedores">
@@ -404,6 +455,10 @@
             <End Role="Productos" EntitySet="Productos" />
             <End Role="DetalleFactura" EntitySet="DetalleFactura" />
           </AssociationSet>
+          <AssociationSet Name="FK_DetalleProducto_Productos" Association="Self.FK_DetalleProducto_Productos">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="DetalleProducto" EntitySet="DetalleProducto" />
+          </AssociationSet>
           <AssociationSet Name="FK_devolucion_Facturas" Association="Self.FK_devolucion_Facturas">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="devolucion" EntitySet="devolucion" />
@@ -420,13 +475,16 @@
             <End Role="Factura" EntitySet="Factura" />
             <End Role="ordenPago" EntitySet="ordenPago" />
           </AssociationSet>
+          <AssociationSet Name="FK_presupuesto_Facturas" Association="Self.FK_presupuesto_Facturas">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="presupuesto" EntitySet="presupuesto" />
+          </AssociationSet>
           <AssociationSet Name="FK_Productos_Proveedores" Association="Self.FK_Productos_Proveedores">
             <End Role="Proveedores" EntitySet="Proveedores" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -557,6 +615,7 @@
           <NavigationProperty Name="DetalleFactura" Relationship="Self.FK_DetalleFactura_Factura" FromRole="Factura" ToRole="DetalleFactura" />
           <NavigationProperty Name="devolucion" Relationship="Self.FK_devolucion_Facturas" FromRole="Factura" ToRole="devolucion" />
           <NavigationProperty Name="ordenPago" Relationship="Self.FK_ordenPago_Facturas" FromRole="Factura" ToRole="ordenPago" />
+          <NavigationProperty Name="presupuesto" Relationship="Model.FK_presupuesto_Facturas" FromRole="Factura" ToRole="presupuesto" />
         </EntityType>
         <EntityType Name="ofertas">
           <Key>
@@ -602,6 +661,7 @@
           <NavigationProperty Name="DetalleFactura" Relationship="Self.FK_DetalleFactura_Productos" FromRole="Productos" ToRole="DetalleFactura" />
           <NavigationProperty Name="ofertas" Relationship="Self.FK_ofertas_Productos" FromRole="Productos" ToRole="ofertas" />
           <NavigationProperty Name="Proveedores" Relationship="Self.FK_Productos_Proveedores" FromRole="Productos" ToRole="Proveedores" />
+          <NavigationProperty Name="DetalleProducto" Relationship="Model.FK_DetalleProducto_Productos" FromRole="Productos" ToRole="DetalleProducto" />
         </EntityType>
         <EntityType Name="Proveedores">
           <Key>
@@ -838,7 +898,68 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="DetalleProducto" EntityType="Model.DetalleProducto" />
+          <EntitySet Name="presupuesto" EntityType="Model.presupuesto" />
+          <AssociationSet Name="FK_DetalleProducto_Productos" Association="Model.FK_DetalleProducto_Productos">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="DetalleProducto" EntitySet="DetalleProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_presupuesto_Facturas" Association="Model.FK_presupuesto_Facturas">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="presupuesto" EntitySet="presupuesto" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="DetalleProducto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_producto" Type="Int32" Nullable="false" />
+          <Property Name="fechaAlta" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="areaSolicita" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="precio_anterior" Type="Single" Nullable="false" />
+          <Property Name="precio_actual" Type="Single" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Productos" Relationship="Model.FK_DetalleProducto_Productos" FromRole="DetalleProducto" ToRole="Productos" />
+        </EntityType>
+        <EntityType Name="presupuesto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_factura" Type="Int32" Nullable="false" />
+          <Property Name="fechaAlta" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="areaSolicita" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="total" Type="Single" Nullable="false" />
+          <Property Name="presupuestoInicial" Type="Single" Nullable="false" />
+          <Property Name="presupuestoActual" Type="Single" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Factura" Relationship="Model.FK_presupuesto_Facturas" FromRole="presupuesto" ToRole="Factura" />
+        </EntityType>
+        <Association Name="FK_DetalleProducto_Productos">
+          <End Type="Model.Productos" Role="Productos" Multiplicity="1" />
+          <End Type="Model.DetalleProducto" Role="DetalleProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetalleProducto">
+              <PropertyRef Name="id_producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_presupuesto_Facturas">
+          <End Type="Model.Factura" Role="Factura" Multiplicity="1" />
+          <End Type="Model.presupuesto" Role="presupuesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="presupuesto">
+              <PropertyRef Name="id_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1027,6 +1148,33 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="DetalleProducto">
+            <EntityTypeMapping TypeName="Model.DetalleProducto">
+              <MappingFragment StoreEntitySet="DetalleProducto">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="precio_actual" ColumnName="precio_actual" />
+                <ScalarProperty Name="precio_anterior" ColumnName="precio_anterior" />
+                <ScalarProperty Name="areaSolicita" ColumnName="areaSolicita" />
+                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
+                <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="presupuesto">
+            <EntityTypeMapping TypeName="Model.presupuesto">
+              <MappingFragment StoreEntitySet="presupuesto">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="presupuestoActual" ColumnName="presupuestoActual" />
+                <ScalarProperty Name="presupuestoInicial" ColumnName="presupuestoInicial" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="areaSolicita" ColumnName="areaSolicita" />
+                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
+                <ScalarProperty Name="id_factura" ColumnName="id_factura" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

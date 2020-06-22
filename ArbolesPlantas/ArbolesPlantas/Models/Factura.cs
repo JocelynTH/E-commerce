@@ -20,6 +20,7 @@ namespace ArbolesPlantas.Models
             this.DetalleFactura = new HashSet<DetalleFactura>();
             this.devolucion = new HashSet<devolucion>();
             this.ordenPago = new HashSet<ordenPago>();
+            this.presupuesto = new HashSet<presupuesto>();
         }
     
         public int Id { get; set; }
@@ -36,5 +37,7 @@ namespace ArbolesPlantas.Models
         public virtual ICollection<devolucion> devolucion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ordenPago> ordenPago { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<presupuesto> presupuesto { get; set; }
     }
 }

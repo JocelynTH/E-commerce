@@ -39,5 +39,7 @@ namespace ArbolesPlantas.Models
         public virtual DbSet<ordenPago> ordenPago { get; set; }
         public virtual DbSet<Productos> Productos { get; set; }
         public virtual DbSet<Proveedores> Proveedores { get; set; }
+        public virtual DbSet<DetalleProducto> DetalleProducto { get; set; }
+        public virtual DbSet<presupuesto> presupuesto { get; set; }
     }
 }

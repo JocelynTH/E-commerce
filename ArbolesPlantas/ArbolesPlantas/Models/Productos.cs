@@ -20,6 +20,7 @@ namespace ArbolesPlantas.Models
             this.detalleCompra = new HashSet<detalleCompra>();
             this.DetalleFactura = new HashSet<DetalleFactura>();
             this.ofertas = new HashSet<ofertas>();
+            this.DetalleProducto = new HashSet<DetalleProducto>();
         }
     
         public int Id { get; set; }
@@ -40,5 +41,7 @@ namespace ArbolesPlantas.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ofertas> ofertas { get; set; }
         public virtual Proveedores Proveedores { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalleProducto> DetalleProducto { get; set; }
     }
 }

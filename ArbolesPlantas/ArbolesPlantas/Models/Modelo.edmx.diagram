@@ -32,6 +32,10 @@
         <AssociationConnector Association="Model.FK_ofertas_Productos" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Productos_Proveedores" ManuallyRouted="false" />
         <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.DetalleProducto" Width="1.5" PointX="5.25" PointY="18.875" />
+        <EntityTypeShape EntityType="Model.presupuesto" Width="1.5" PointX="7.5" PointY="18.875" />
+        <AssociationConnector Association="Model.FK_DetalleProducto_Productos" />
+        <AssociationConnector Association="Model.FK_presupuesto_Facturas" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
