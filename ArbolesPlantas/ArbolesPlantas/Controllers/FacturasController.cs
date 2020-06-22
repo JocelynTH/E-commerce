@@ -36,25 +36,61 @@ namespace ArbolesPlantas.Controllers
 
 		public ActionResult facturasPendientes()
 		{
-			var factura = db.Factura.Include(f => f.Compras);
-			var fac = (from f in db.Factura
-					   where f.status == 1
-					   orderby f.fecha_pago descending
-					   orderby f.Compras.Proveedores.razon_social ascending
-					   select f).ToList();
+			if (User.Identity.IsAuthenticated)
+			{
+				if (User.IsInRole("PagoProveedores"))
+				{
 
-			return View(fac);
+					var factura = db.Factura.Include(f => f.Compras);
+					var fac = (from f in db.Factura
+							   where f.status == 1
+							   orderby f.fecha_pago descending
+							   orderby f.Compras.Proveedores.razon_social ascending
+							   select f).ToList();
+
+					return View(fac);
+
+				}
+				else
+				{
+					System.Diagnostics.Debug.WriteLine("No Autentificado otro rol");
+					return RedirectToAction("sinPrivilegios", "Home");
+				}
+			}
+			else
+			{
+				System.Diagnostics.Debug.WriteLine("No Autentificado");
+				return RedirectToAction("Login", "Account");
+			}
 		}
 
 		public ActionResult facturasPagadas()
 		{
-			var factura = db.Factura.Include(f => f.Compras);
-			var fac = (from f in db.Factura
-					   where f.status == 2
-					   orderby f.fecha_pago descending
-					   orderby f.Compras.Proveedores.razon_social ascending
-					   select f).ToList();
-			return View(fac);
+			if (User.Identity.IsAuthenticated)
+			{
+				if (User.IsInRole("PagoProveedores"))
+				{
+
+					var factura = db.Factura.Include(f => f.Compras);
+					var fac = (from f in db.Factura
+							   where f.status == 2
+							   orderby f.fecha_pago descending
+							   orderby f.Compras.Proveedores.razon_social ascending
+							   select f).ToList();
+					return View(fac);
+
+				}
+				else
+				{
+					System.Diagnostics.Debug.WriteLine("No Autentificado otro rol");
+					return RedirectToAction("sinPrivilegios", "Home");
+				}
+			}
+			else
+			{
+				System.Diagnostics.Debug.WriteLine("No Autentificado");
+				return RedirectToAction("Login", "Account");
+			}
 		}
 
 		// GET: Facturas/Details/5

@@ -24,55 +24,56 @@ namespace ArbolesPlantas.Controllers
 		// GET: DetalleFacturas
 		public ActionResult DetallesFac(int id_factura)
 		{
-			List<detalleCompra> Final = new List<detalleCompra>();
-			List<detalleCompra> lista = db.detalleCompra.ToList();
-			List<DetalleFactura> listaDF = db.DetalleFactura.ToList();
-			List<DetalleFactura> FinalDF = new List<DetalleFactura>();
-			List<Compras> compras = db.Compras.ToList();
-			List<Factura> facturas = db.Factura.ToList();
-			var id_proveedor = 0;
-			var proveedor = " ";
-			var total = 0.0;
-
-			//foreach (detalleCompra d in lista)
-			//{
-			//	if (d.id_compra == id_compra)
-			//	{
-			//		Final.Add(d);
-			//	}
-			//}
-			foreach (DetalleFactura d in listaDF)
+			if (User.Identity.IsAuthenticated)
 			{
-				if (d.Factura.Id == id_factura)
+				if (User.IsInRole("PagoProveedores"))
 				{
-					FinalDF.Add(d);
+
+					List<detalleCompra> Final = new List<detalleCompra>();
+					List<detalleCompra> lista = db.detalleCompra.ToList();
+					List<DetalleFactura> listaDF = db.DetalleFactura.ToList();
+					List<DetalleFactura> FinalDF = new List<DetalleFactura>();
+					List<Compras> compras = db.Compras.ToList();
+					List<Factura> facturas = db.Factura.ToList();
+					var id_proveedor = 0;
+					var proveedor = " ";
+					var total = 0.0;
+
+					foreach (DetalleFactura d in listaDF)
+					{
+						if (d.Factura.Id == id_factura)
+						{
+							FinalDF.Add(d);
+						}
+					}
+					foreach (Proveedores p in db.Proveedores.ToList())
+					{
+						if (p.Id == id_proveedor)
+						{
+							proveedor = p.nombre_corto;
+							break;
+						}
+					}
+					var factura = db.Factura.Find(id_factura);
+					ViewBag.id_compra = factura.Compras.Id;
+					ViewBag.proveedor = factura.Compras.Proveedores.razon_social;
+					ViewBag.total = factura.total;
+
+					return View(FinalDF.ToList());
+
+				}
+				else
+				{
+					System.Diagnostics.Debug.WriteLine("No Autentificado otro rol");
+					return RedirectToAction("sinPrivilegios", "Home");
 				}
 			}
-			//foreach (Factura f in facturas)
-			//{
-			//	if (f.Id == id_factura)
-			//	{
-			//		id_proveedor = f.Compras.id_proveedor;
-			//		impuestos = f.Compras.impuesto;
-			//		subtotal = f.Compras.subtotal;
-			//		total = f.Compras.total;
-			//		break;
-			//	}
-			//}
-			foreach (Proveedores p in db.Proveedores.ToList())
+			else
 			{
-				if (p.Id == id_proveedor)
-				{
-					proveedor = p.nombre_corto;
-					break;
-				}
+				System.Diagnostics.Debug.WriteLine("No Autentificado");
+				return RedirectToAction("Login", "Account");
 			}
-			var factura = db.Factura.Find(id_factura);
-			ViewBag.id_compra = factura.Compras.Id;
-			ViewBag.proveedor = factura.Compras.Proveedores.razon_social;
-			ViewBag.total = factura.total;
-
-			return View(FinalDF.ToList());
+			
 
 			//var detalleCompra = db.detalleCompra.Include(d => d.Compras).Include(d => d.Productos);
 			//return View(detalleCompra.ToList());

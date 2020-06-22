@@ -24,21 +24,58 @@ namespace ArbolesPlantas.Controllers
 		// GET: OrdenPagos
 		public ActionResult historialPagos()
 		{
-			var ordenPago = db.ordenPago.Include(o => o.Factura);
-			var orden = (from o in db.ordenPago
-						 where o.status == 1
-						 select o).ToList();
-			return View(orden);
+			if (User.Identity.IsAuthenticated)
+			{
+				if (User.IsInRole("PagoProveedores"))
+				{
+
+					var ordenPago = db.ordenPago.Include(o => o.Factura);
+					var orden = (from o in db.ordenPago
+								 where o.status == 1
+								 select o).ToList();
+					return View(orden);
+
+				}
+				else
+				{
+					System.Diagnostics.Debug.WriteLine("No Autentificado otro rol");
+					return RedirectToAction("sinPrivilegios", "Home");
+				}
+			}
+			else
+			{
+				System.Diagnostics.Debug.WriteLine("No Autentificado");
+				return RedirectToAction("Login", "Account");
+			}
 		}
 
 		// GET: OrdenPagos
 		public ActionResult pagosPendientes()
 		{
-			var ordenPago = db.ordenPago.Include(o => o.Factura);
-			var orden = (from o in db.ordenPago
-						 where o.status == 0
-						 select o).ToList();
-			return View(orden);
+			if (User.Identity.IsAuthenticated)
+			{
+				if (User.IsInRole("PagoProveedores"))
+				{
+
+					var ordenPago = db.ordenPago.Include(o => o.Factura);
+					var orden = (from o in db.ordenPago
+								 where o.status == 0
+								 select o).ToList();
+					return View(orden);
+
+				}
+				else
+				{
+					System.Diagnostics.Debug.WriteLine("No Autentificado otro rol");
+					return RedirectToAction("sinPrivilegios", "Home");
+				}
+			}
+			else
+			{
+				System.Diagnostics.Debug.WriteLine("No Autentificado");
+				return RedirectToAction("Login", "Account");
+			}
+			
 		}
 
 		// GET: OrdenPagos/Details/5
@@ -61,13 +98,12 @@ namespace ArbolesPlantas.Controllers
         {
 			//ViewBag.id_factura = new SelectList(db.Factura, "Id", "Id");
 			//return View();
+			
+			if (User.Identity.IsAuthenticated)
+			{
+				if (User.IsInRole("PagoProveedores"))
+				{
 
-
-			//if (User.Identity.IsAuthenticated)
-			//{
-			//	if (User.IsInRole("PagoProveedores"))
-			//	{
-					
 					Factura factura = db.Factura.Find(id);
 					ordenPago o = new ordenPago();
 					o.id_factura = factura.Id;
@@ -75,19 +111,19 @@ namespace ArbolesPlantas.Controllers
 					o.cantidad_restante = 0;
 
 					return View(o);
-					
-			//	}
-			//	else
-			//	{
-			//		System.Diagnostics.Debug.WriteLine("No Autentificado otro rol");
-			//		return RedirectToAction("sinPrivilegios", "Home");
-			//	}
-			//}
-			//else
-			//{
-			//	System.Diagnostics.Debug.WriteLine("No Autentificado");
-			//	return RedirectToAction("Login", "Account");
-			//}
+
+				}
+				else
+				{
+					System.Diagnostics.Debug.WriteLine("No Autentificado otro rol");
+					return RedirectToAction("sinPrivilegios", "Home");
+				}
+			}
+			else
+			{
+				System.Diagnostics.Debug.WriteLine("No Autentificado");
+				return RedirectToAction("Login", "Account");
+			}
 		}
 
         // POST: OrdenPagos/Create
