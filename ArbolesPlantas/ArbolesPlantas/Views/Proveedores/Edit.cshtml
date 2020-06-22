@@ -1,0 +1,107 @@
+﻿@model Proyecto.Models.Proveedores
+
+@{
+    ViewBag.Title = "Edit";
+}
+<br />
+<h2>Editar Proveedor</h2>
+
+<br />
+
+<div class="row justify-content-center">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h5>Información del Proveedor</h5>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+
+                                <div class="form-group">
+                                    @Html.Label("RFC");
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.rfc, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.rfc, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Razón Social");
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.razon_social, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.razon_social, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Nombre corto");
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.nombre_corto, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.nombre_corto, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Descripción");
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Dirección");
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.direccion, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Correo Electronico");
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Número de Telefono");
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Estado")
+                                    @Html.DropDownListFor(model=>model.status, new List<SelectListItem>
+                                        { new SelectListItem{Text="No Disponible", Value="1"},
+                                            new SelectListItem{Text="Disponible", Value="0"},
+                                        }, "------", new { @class = "form-control", required = "true" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 align-content-end">
+                                <button type="submit" class="btn btn-success">Guardar</button>
+                                @Html.ActionLink("Cancelar", "Index", "", new { @class = "btn btn-danger" })
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+

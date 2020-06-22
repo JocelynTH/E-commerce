@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Proyecto.Models.Compras>
+
+@{
+   ViewBag.Title = "Llegadas";
+}
+<h2>Pedidos por llegar</h2>
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="listarPedidos" class="table table-striped">
+                        <thead style="background-color: #7cb342; color: white;">
+                            <tr>
+                                <th scope="col">No. Factura</th>
+                                <th scope="col">Proveedor</th>
+                                <th scope="col">Fecha Pedido</th>
+                                <th scope="col">Fecha Entrega</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Proveedores.nombre_corto)
+                                </td>
+                                <td>
+                                    @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.fecha))
+                                </td>
+                                <td>
+                                    @switch (item.id_proveedor)
+                                    {
+                                        case 0:
+                                            @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.fecha.AddDays(5)))
+                                            break;
+                                        case 1:
+                                            @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.fecha.AddDays(7)))
+                                            break;
+                                        case 4:
+                                            @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.fecha.AddDays(4)))
+                                            break;
+                                        default:
+                                            @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.fecha.AddDays(8)))
+                                            break;
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.total)
+                                </td>
+                                <td>
+                                    @switch (item.status)
+                                    {
+                                        case 4:
+                                            @Html.Label("En Proceso", new { @class = "alert alert-warning" });
+                                            break;
+                                        case 6:
+                                            @Html.Label("Finalizada", new { @class = "alert alert-danger" });
+                                            break;
+                                    }
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Registrar Recepción", "verificar", "detalleCompras", new { id_compra = item.Id }, new { @class = "btn btn-success" })
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#listarPedidos').DataTable({
+            "ordering": false,
+            "pageLength": 10,
+            "lengthChange": false,
+            language: {
+                search: "Buscar:",
+                info: "",
+                lengthMenu: "Mostrar _MENU_",
+                infoFiltered: "",
+                infoEmpty: "",
+                paginate: {
+                    first: "Primero",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultimo"
+                }
+            }
+        });
+    });
+</script>
+

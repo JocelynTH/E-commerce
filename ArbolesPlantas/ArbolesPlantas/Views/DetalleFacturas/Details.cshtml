@@ -1,0 +1,74 @@
+﻿@model Proyecto.Models.DetalleFactura
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DetalleFactura</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.recibido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.recibido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.subtotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.subtotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.motivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.motivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.faltante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.faltante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Factura.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Factura.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Productos.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Productos.nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

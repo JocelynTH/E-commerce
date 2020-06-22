@@ -1,0 +1,128 @@
+﻿@model IEnumerable<Proyecto.Models.detalleCompra>
+
+@{
+    ViewBag.Title = "Verificar";
+    var cont = 1;
+    
+}
+<h2>Verificar detalles de Pedido</h2>
+
+<div class="row">
+    <div class="col">
+        @using (Html.BeginForm("verificar", "detalleCompras", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="card">
+                <div class="card-body">
+                    @Html.Label("Factura de Compra: ")&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>@ViewBag.id_compra</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.Label("Subtotal:   ")&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>@ViewBag.subtotal</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <br />
+                    @Html.Label("Proveedor: ")&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>@ViewBag.proveedor</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.Label("Impuestos:   ")&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>@ViewBag.impuetos</label>
+
+                    <br />
+                    @Html.Label("Total:   ")&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>@ViewBag.total</label>
+                    <br />
+                    <div class="table-responsive">
+                        <table id="listarDetalles" class="table table-striped">
+                            <thead style="background-color: #7cb342; color: white;">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Caso</th>
+                                    <th scope="col">Recibido</th>
+                                    <th scope="col">Faltante</th>
+                                    <th scope="col">Motivo</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <input id="idProducto@(cont)" name="idProducto@(cont)" value="@item.Productos.Id" type="hidden">
+                                            <input id="precioP@(cont)" name="precioP@(cont)" value="@item.Productos.precio_compra" type="hidden">
+                                            @Html.DisplayFor(modelItem => item.Productos.nombre)
+                                        </td>
+                                        <td>
+                                            <input id="cantidadP@(cont)" name="cantidadP@(cont)" value="@item.cantidad" type="hidden">
+                                            @Html.DisplayFor(modelItem => item.cantidad)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.precio_compra)
+                                        </td>
+                                        <td>
+                                            <select name="caso@(cont)" id="caso@(cont)">
+                                                <option value="">Seleccionar</option>
+                                                <option value="1">Completo</option>
+                                                <option value="2">Incompleto</option>
+                                                <option value="3">Devolución</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" onchange="calcularFaltante(@cont);" name="recibido@(cont)" style="width:100px" id="recibido@(cont)" value="@item.cantidad" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="faltante@(cont)" readonly="readonly" style="width:100px" id="faltante@(cont)" value="0" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="motivo@(cont)" id="motivo@(cont)" />
+                                        </td>
+                                    </tr>
+                                    cont++;
+                                }
+                            </tbody>
+                        </table>
+                        <input id="idCompra" name="idCompra" value="@ViewBag.id_compra" type="hidden" />
+                        <input id="valorCont" name="valorCont" value="@(cont)" type="hidden" />
+                        <button type="submit" class="btn btn-success">Registrar llegada</button>
+                    </div>
+                </div>
+            </div>
+        }   
+        </div>
+</div>
+<script type="text/javascript">
+    function calcularFaltante(num) {
+        var recibido = $("#recibido" + num).val();
+        var pedido = $("input[id = cantidadP" + num + "]").val();
+        $("#faltante" + num).val(pedido - recibido);
+        
+    }
+</script>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#listarDetalles').DataTable({
+            "ordering": false,
+            "pageLength": 10,
+            "lengthChange": false,
+            language: {
+                search: "Buscar:",
+                info: "",
+                lengthMenu: "Mostrar _MENU_",
+                infoFiltered: "",
+                infoEmpty: "",
+                paginate: {
+                    first: "Primero",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultimo"
+                }
+            }
+        });
+    });
+</script>

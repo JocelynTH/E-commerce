@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Proyecto.Models.Proveedores>
+
+@{
+    ViewBag.Title = "Proveedores";
+}
+<br />
+<h2>Proveedores</h2>
+
+<p>
+    @Html.ActionLink("Agregar", "Create", new { @class = "btn btn-success" })
+</p>
+
+
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="listarProveedores" class="table table-striped">
+                        <thead style="background-color: #7cb342; color: white;">
+                            <tr>
+                                <th scope="col">RFC</th>
+                                <th scope="col">Razon Social</th>
+                                <th scope="col">Nombre Corto</th>
+                                <th scope="col">Dirección</th>
+                                <th scope="col">Correo Electronico</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col"></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.rfc)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.razon_social)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.nombre_corto)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.direccion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.telefono)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Iniciar Compra", "agregarCompra", new { id = item.Id }, new { @class = "btn btn-success" })
+                                        |&nbsp;&nbsp;
+                                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-success" }) |
+                                        &nbsp;&nbsp;
+                                        @Html.ActionLink("Borrar", "Delete", new { id = item.Id }, new { @class = "btn btn-success" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#listarProveedores').DataTable({
+            "ordering": false,
+            "pageLength": 10,
+            "lengthChange": false,
+            language: {
+                search: "Buscar:",
+                info: "",
+                lengthMenu: "Mostrar _MENU_",
+                infoFiltered: "",
+                infoEmpty: "",
+                paginate: {
+                    first: "Primero",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultimo"
+                }
+            }
+        });
+    });
+</script>

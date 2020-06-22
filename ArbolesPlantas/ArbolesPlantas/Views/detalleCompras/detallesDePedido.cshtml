@@ -1,0 +1,125 @@
+﻿@model IEnumerable<Proyecto.Models.detalleCompra>
+
+@{
+    ViewBag.Title = "detallesDePedido";
+    
+}
+<br />
+<h2>Confirmar detalles de Pedido</h2>
+
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <center> Presupuesto:  <label>@ViewBag.presupuesto</label></center>
+                <div class="table-responsive">
+                    <table id="datosProveedor" class="table table-striped">
+                        <thead style="background-color: #7cb342; color: white;">
+                            <tr>
+                                <th scope="col">No.Factura</th>
+                                <th scope="col">Proveedor</th>
+                                <th scope="col">Numero</th>
+                                <th scope="col">Fecha de Pedido</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="height:5px">
+                                <td>
+                                    <label>@ViewBag.id_compra</label>
+                                </td>
+                                <td>
+                                    <label>@ViewBag.proveedor</label>
+                                </td>
+                                <td>
+                                    <label>@ViewBag.proveedorTel</label>
+                                </td>
+                                <td>
+                                    @Convert.ToString(string.Format("{0:dd/MM/yyyy}", @ViewBag.fecha))
+                                </td>
+                                <td>
+                                    <label>@ViewBag.total</label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4>Detalles</h4>
+                <div class="table-responsive">
+                    <table id="listarDetalles" class="table table-striped">
+                        <thead style="background-color: #7cb342; color: white;">
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Costo Unitario</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">SubTotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Productos.nombre)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Productos.precio_compra)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.cantidad)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.precio_compra)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @if (@ViewBag.total > @ViewBag.presupuesto)
+                    {
+                        @Html.ActionLink("Mandar Presupuesto ", "editarCompra", "Compras", new { id = @ViewBag.id_compra }, new { @class = "btn btn-success" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Realizar Pedido ", "editarCompra", "Compras", new { id = @ViewBag.id_compra }, new { @class = "btn btn-success" })
+                    }
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ActionLink("Cancelar", null, null, null, new { href = Request.UrlReferrer })
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#listarDetalles').DataTable({
+            "ordering": false,
+            "pageLength": 10,
+            "lengthChange": false,
+            language: {
+                search: "Buscar:",
+                info: "",
+                lengthMenu: "Mostrar _MENU_",
+                infoFiltered: "",
+                infoEmpty: "",
+                paginate: {
+                    first: "Primero",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultimo"
+                }
+            }
+        });
+    });
+</script>
+

@@ -1,0 +1,127 @@
+﻿@model IEnumerable<Proyecto.Models.Compras>
+
+@{
+    ViewBag.Title = "Pedidos";
+}
+<h2>Pedidos Realizados</h2>
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="listarPedidos" class="table table-striped">
+                        <thead style="background-color: #7cb342; color: white;">
+                            <tr>
+                                <th scope="col">No. Factura</th>
+                                <th scope="col">Proveedor</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Proveedores.nombre_corto)
+                                </td>
+                                <td>
+                                    @Convert.ToString(string.Format("{0:dd/MM/yyyy}",item.fecha))
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.total)
+                                </td>
+                                <td>
+                                    @switch (item.status)
+                                    {
+                                        case 0:
+                                            @Html.Label("Iniciada", new { @class = "alert alert-warning" });
+                                            break;
+                                        case 1:
+                                            @Html.Label("Pendiente", new { @class = "alert alert-warning" });
+                                            break;
+                                        case 2:
+                                            @Html.Label("Rechazada", new { @class = "alert alert-danger" });
+                                            break;
+                                        case 3:
+                                            @Html.Label("Aprobada", new { @class = "alert alert-success" });
+                                            break;
+                                        case 4:
+                                            @Html.Label("En Proceso", new { @class = "alert alert-warning" });
+                                            break;
+                                        case 5:
+                                            @Html.Label("Finalizada", new { @class = "alert alert-success" });
+                                            break;
+                                    }
+                                </td>
+                                <td>
+                                    @switch (item.status)
+                                    {
+                                        case 1:
+                                            @Html.ActionLink("Detalles", "Index", "detalleCompras", new { id_compra = item.Id }, new { @class = "btn btn-success" })
+                                            break;
+                                        case 2:
+                                            @Html.ActionLink("Detalles", "Index", "detalleCompras", new { id_compra = item.Id }, new { @class = "btn btn-success" })
+                                            @Html.ActionLink("Borrar", "cambiaEstado", new { id = item.Id }, new { @class = "btn btn-success" })
+                                            break;
+                                        case 3:
+                                            @Html.ActionLink("Detalles", "Index", "detalleCompras", new { id_compra = item.Id }, new { @class = "btn btn-success" })
+                                            @Html.ActionLink("Pedir", "cambiaEstado", new { id = item.Id }, new { @class = "btn btn-success" })
+                                            break;
+                                        case 4:
+                                            @Html.ActionLink("Detalles", "Index", "detalleCompras", new { id_compra = item.Id }, new { @class = "btn btn-success" })
+                                            
+                                            break;
+                                        case 5:
+                                            @Html.ActionLink("Detalles", "Index", "detalleCompras", new { id_compra = item.Id }, new { @class = "btn btn-success" })
+                                            break;
+                                    }
+                                 
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.ActionLink("Compras Sugeridas", "Existencias", "", new { @class = "btn btn-success" })
+
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#listarPedidos').DataTable({
+            "ordering": false,
+            "pageLength": 10,
+            "lengthChange": false,
+            language: {
+                search: "Buscar:",
+                info: "",
+                lengthMenu: "Mostrar _MENU_",
+                infoFiltered: "",
+                infoEmpty: "",
+                paginate: {
+                    first: "Primero",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultimo"
+                }
+            }
+        });
+    });
+</script>
+

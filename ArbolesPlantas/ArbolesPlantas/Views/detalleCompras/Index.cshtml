@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Proyecto.Models.detalleCompra>
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<br />
+<h2>Detalles de Pedido</h2>
+
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                @Html.Label("Factura de Compra: ")&nbsp;&nbsp;&nbsp;&nbsp;
+                <label>@ViewBag.id_compra</label>
+               
+                <br />
+                @Html.Label("Proveedor: ")&nbsp;&nbsp;&nbsp;&nbsp;
+                <label>@ViewBag.proveedor</label>
+
+                <div class="table-responsive">
+                    <table id="listarDetalles" class="table table-striped">
+                        <thead style="background-color: #7cb342; color: white;">
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Total</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Productos.nombre)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.cantidad)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.precio_compra)
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    @Html.Label("Subtotal:   ")&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>@ViewBag.subtotal</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.Label("Impuestos:   ")&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>@ViewBag.impuetos</label>
+                    <br />
+                    @Html.Label("Total:   ")&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>@ViewBag.total</label>
+                    <br />
+                    @Html.ActionLink("Aceptar", null, null, null, new { href = Request.UrlReferrer })
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#listarDetalles').DataTable({
+            "ordering": false,
+            "pageLength": 10,
+            "lengthChange": false,
+            language: {
+                search: "Buscar:",
+                info: "",
+                lengthMenu: "Mostrar _MENU_",
+                infoFiltered: "",
+                infoEmpty: "",
+                paginate: {
+                    first: "Primero",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultimo"
+                }
+            }
+        });
+    });
+</script>

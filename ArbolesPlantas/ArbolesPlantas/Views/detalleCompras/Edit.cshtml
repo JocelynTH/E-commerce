@@ -1,0 +1,115 @@
+﻿@model Proyecto.Models.detalleCompra
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Editar Pedido</h2>
+
+
+<div class="row justify-content-center">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h5>Información del Producto</h5>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+
+                            <input id="precioUnitario" name="precioUnitario" type="hidden">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.Id)
+
+
+                            <div class="form-group">
+                                @Html.Label("Factura de Compra:  ")
+                                <label>@ViewBag.id_compra</label>
+                                @Html.HiddenFor(model=>model.id_compra)
+                                @Html.ValidationMessageFor(model => model.id_compra, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Productos")
+                                <div class="col-md-10">
+                                    @Html.DropDownList("id_producto", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.id_producto, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Cantidad")
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.cantidad, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.cantidad, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Total")
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.precio_compra, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
+                                    @Html.ValidationMessageFor(model => model.precio_compra, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Aceptar" class="btn btn-success" />
+                        </div>
+                    </div>
+
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+
+<script type="text/javascript">
+    $('#id_producto').change(function () {
+        var myArrayPrecio = [];
+        var myArrayId = [];
+        var cont = -1;
+
+        @foreach (var link in ViewBag.lista){
+
+                            @:myArrayId.push("@link.Id");
+                            @:myArrayPrecio.push("@link.precio_compra");
+
+                        }
+                    var id_producto = $("#id_producto option:selected").val();
+
+                    for (var Id of myArrayId)
+                    {
+                        cont++;
+                        if (Id == id_producto)
+                        {
+                            break;
+                        }
+                    }
+
+                        $("input[id=precioUnitario]").val(myArrayPrecio[cont]);
+                        $("#precio_compra").val(myArrayPrecio[cont]);
+                        $("#cantidad").val(1);
+
+});
+
+                    $('#cantidad').change(function () {
+                    var total = $("#cantidad").val();
+                    var precioUnitario = $("input[id=precioUnitario]").val();
+                        $('#precio_compra').val(total * precioUnitario);
+});
+
+                                </script>

@@ -1,0 +1,127 @@
+﻿@model IEnumerable<Proyecto.Models.Productos>
+
+@{
+
+    ViewBag.Title = "Existencias";
+    var cont = 1;
+}
+
+<h2>Productos proximos a acabarse</h2>
+
+
+<div class="row">
+    <div class="col">
+        @using (Html.BeginForm("Existencias", "Compras", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="card">
+                @Html.Label("Proveedor:")
+                @Html.DropDownList("id_proveedores", null, "Seleccione un proveedor", htmlAttributes: new { @class = "form-control", @onchange = "cambio(this)" })
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="listarExistencia" class="table table-striped">
+                            <thead style="background-color: #7cb342; color: white;">
+                                <tr>
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">Proveedor</th>
+                                    <th scope="col">Existencia</th>
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">Diferencia</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Pedir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    if (item.id_proveedor == @ViewBag.actual)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <input id="producto@(cont)" name="producto@(cont)" type="hidden" value="@(item.Id)">    
+                                                @Html.DisplayFor(modelItem => item.nombre)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Proveedores.nombre_corto)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.cantidad)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stock)
+                                            </td>
+                                            <td>
+                                                @Html.Label("" + (item.cantidad - item.stock))
+                                            </td>
+                                            <td>
+                                                <input type="text" name="cantidad@(cont)" style="width:100px" disabled="disabled" id="cantidad@(cont)" />
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" name="comprar@(cont)" id="comprar@(cont)" onclick='activarTexto(this);' />
+                                            </td>
+                                        </tr>
+
+                                        cont++;
+                                    }
+
+                                }
+                            </tbody>
+                        </table>
+                        <button type="submit" class="btn btn-success">Nuevo Pedido</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    function cambio() {
+        var actual = $('#id_proveedores option:selected').val();
+        window.location.href = "/Compras/Existencias/"+actual;
+    }
+
+    $('#id_proveedores').val(@ViewBag.id);
+
+    function activarTexto(cb) {
+        var id = cb.id;
+        var campoid = "cantidad" + id.charAt(id.length - 1);
+        var campohabilitado = document.getElementById(campoid);
+        if (cb.checked) {
+            campohabilitado.disabled = false;
+        } else{
+            campohabilitado.disabled = true;
+        }
+    }
+</script>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#listarExistencia').DataTable({
+            "ordering": false,
+            "pageLength": 10,
+            "lengthChange": false,
+            language: {
+                search: "Buscar:",
+                info: "",
+                lengthMenu: "Mostrar _MENU_",
+                infoFiltered: "",
+                infoEmpty: "",
+                paginate: {
+                    first: "Primero",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultimo"
+                }
+            }
+        });
+    });
+</script>
+
