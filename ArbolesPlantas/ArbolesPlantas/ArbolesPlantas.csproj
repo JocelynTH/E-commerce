@@ -557,6 +557,8 @@
     <Content Include="Views\Facturas\facturasPorPagar.cshtml" />
     <Content Include="Views\Facturas\facturasPendientes.cshtml" />
     <Content Include="Views\Facturas\facturasPagadas.cshtml" />
+    <Content Include="Views\OrdenPagos\historialPagos.cshtml" />
+    <Content Include="Views\OrdenPagos\pagosPendientes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

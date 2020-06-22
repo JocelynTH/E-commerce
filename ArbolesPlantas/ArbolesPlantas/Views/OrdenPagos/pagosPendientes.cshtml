@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ArbolesPlantas.Models.ordenPago>
+
+@{
+	ViewBag.Title = "Pago a proveedores";
+	ViewBag.id = Model.First().id_factura;
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>Pagos en espera de aprobación</h2>
+
+<table class="table ">
+	<thead class="thead-primary">
+		<tr>
+			<th>
+				Id
+			</th>
+			<th>
+				No. Factura
+			</th>
+			<th>
+				Fecha de pago
+			</th>
+			<th>
+				Proveedor
+			</th>
+			<th>
+				Cantidad Pagada
+			</th>
+			<th>
+				Status
+			</th>
+		</tr>
+	</thead>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Id)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Factura.Id)
+			</td>
+			<td>
+				@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.fecha_pago))
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Factura.Compras.Proveedores.razon_social)
+			</td>
+			<td>
+				$@Convert.ToDecimal(item.cantidad_pago).ToString("#,##0.00")
+			</td>
+			<td>
+				@Html.Label("Pendiente", new { @class = "alert alert-warning" })
+			</td>
+		</tr>
+	}
+
+</table>
+<br />
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
