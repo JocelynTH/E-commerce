@@ -1,63 +1,101 @@
 ﻿@model IEnumerable<ArbolesPlantas.Models.ordenPago>
 
 @{
-	ViewBag.Title = "Historial de pagos";
+	ViewBag.Title = "Pago a proveedores";
 	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+<h2>@ViewBag.Title</h2>
 <h2>Historial de pagos</h2>
 
-<table class="table ">
-	<thead class="thead-primary">
-		<tr>
-			<th>
-				Id
-			</th>
-			<th>
-				No. Factura
-			</th>
-			<th>
-				Fecha de pago
-			</th>
-			<th>
-				Proveedor
-			</th>
-			<th>
-				Cantidad Pagada
-			</th>
-			<th>
-				Status
-			</th>
-		</tr>
-	</thead>
+<div class="row">
+	<div class="col">
+		<div class="card">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table id="listarFacturas" class="table">
+						<thead class="thead-primary">
+							<tr class="text-center">
 
-	@foreach (var item in Model)
-	{
-		<tr>
-			<td>
-				@Html.DisplayFor(modelItem => item.Id)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Factura.Id)
-			</td>
-			<td>
-				@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.fecha_pago))
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Factura.Compras.Proveedores.razon_social)
-			</td>
-			<td>
-				$@Convert.ToDecimal(item.cantidad_pago).ToString("#,##0.00")
-			</td>
-			<td>
-				@Html.Label("Aprobado", new { @class = "alert alert-success" })
-			</td>
-		</tr>
-	}
+								<th scope="col">
+									Id
+								</th>
+								<th scope="col">
+									No. Factura
+								</th>
+								<th scope="col">
+									Fecha de pago
+								</th>
+								<th scope="col">
+									Proveedor
+								</th>
+								<th scope="col">
+									Cantidad Pagada
+								</th>
+								<th scope="col">
+									Status
+								</th>
 
-</table>
-<br />
+							</tr>
+						</thead>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<td>
+									@Html.DisplayFor(modelItem => item.Id)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Factura.Id)
+								</td>
+								<td>
+									@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.fecha_pago))
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Factura.Compras.Proveedores.razon_social)
+								</td>
+								<td>
+									$@Convert.ToDecimal(item.cantidad_pago).ToString("#,##0.00")
+								</td>
+								<td>
+									@Html.Label("Aprobado", new { @class = "alert alert-success" })
+								</td>
+							</tr>
+						}
+					</table>
+				</div>
+			</div>
+		</div>
+		<br />
+	</div>
+</div>
 <script>
-function goBack() {
-  window.history.back();
-}
+	function goBack() {
+		window.history.back();
+	}
+</script>
+<script>
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+</script>
+<script>
+	$(document).ready(function () {
+		$('#listarFacturas').DataTable({
+			"ordering": false,
+			"pageLength": 10,
+			"lengthChange": false,
+			language: {
+				search: "Buscar:",
+				info: "",
+				lengthMenu: "Mostrar _MENU_",
+				infoFiltered: "",
+				infoEmpty: "",
+				paginate: {
+					first: "Primero",
+					previous: "Anterior",
+					next: "Siguiente",
+					last: "Ultimo"
+				}
+			}
+		});
+	});
 </script>
