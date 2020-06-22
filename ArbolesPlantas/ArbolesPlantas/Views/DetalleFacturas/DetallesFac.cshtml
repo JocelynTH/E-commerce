@@ -1,0 +1,100 @@
+﻿@model IEnumerable<ArbolesPlantas.Models.DetalleFactura>
+
+@{
+	ViewBag.Title = "Detalles";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<br />
+<h2>Detalles de Factura</h2>
+
+
+<div class="row">
+	<div class="col">
+		<div class="card">
+			<div class="card-body">
+				@Html.Label("Factura de Compra: ")&nbsp;&nbsp;&nbsp;&nbsp;
+				<label>@ViewBag.id_compra</label>
+
+				<br />
+				@Html.Label("Proveedor: ")&nbsp;&nbsp;&nbsp;&nbsp;
+				<label>@ViewBag.proveedor</label>
+
+				<div class="table-responsive">
+					<table id="listarDetalles" class="table table-striped">
+						<thead style="background-color: #7cb342; color: white;">
+							<tr>
+								<th scope="col">Nombre</th>
+								<th scope="col">Cantidad solicitado</th>
+								<th scope="col">Cantidad recibida</th>
+								<th scope="col">Subtotal</th>
+								<th scope="col">Motivo pedido N/C</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>
+										@Html.DisplayFor(modelItem => item.Productos.nombre)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.cantidad)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.recibido)
+									</td>
+									<td>
+										$@Convert.ToDecimal(item.subtotal).ToString("#,##0.00")
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.motivo)
+									</td>
+
+
+
+								</tr>
+							}
+						</tbody>
+					</table>
+
+
+					@Html.Label("Total:   ")&nbsp;&nbsp;&nbsp;&nbsp;
+					<label>$@Convert.ToDecimal(@ViewBag.total).ToString("#,##0.00")</label>
+					<br />
+					@Html.ActionLink("Aceptar", null, null, null, new { href = Request.UrlReferrer })
+				</div>
+			</div>
+		</div>
+		<br />
+	</div>
+</div>
+
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#listarDetalles').DataTable({
+            "ordering": false,
+            "pageLength": 10,
+            "lengthChange": false,
+            language: {
+                search: "Buscar:",
+                info: "",
+                lengthMenu: "Mostrar _MENU_",
+                infoFiltered: "",
+                infoEmpty: "",
+                paginate: {
+                    first: "Primero",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultimo"
+                }
+            }
+        });
+    });
+</script>
