@@ -21,8 +21,44 @@ namespace ArbolesPlantas.Controllers
             return View(factura.ToList());
         }
 
-        // GET: Facturas/Details/5
-        public ActionResult Details(int? id)
+		public ActionResult facturasPorPagar()
+		{
+			var factura = db.Factura.Include(f => f.Compras);
+			var fac = (from f in db.Factura
+					   where f.status == 0
+					   orderby f.fecha_pago descending
+					   orderby f.Compras.Proveedores.razon_social ascending
+					   select f).ToList();
+
+			return View(fac);
+			//return View(factura.ToList());
+		}
+
+		public ActionResult facturasPendientes()
+		{
+			var factura = db.Factura.Include(f => f.Compras);
+			var fac = (from f in db.Factura
+					   where f.status == 1
+					   orderby f.fecha_pago descending
+					   orderby f.Compras.Proveedores.razon_social ascending
+					   select f).ToList();
+
+			return View(fac);
+		}
+
+		public ActionResult facturasPagadas()
+		{
+			var factura = db.Factura.Include(f => f.Compras);
+			var fac = (from f in db.Factura
+					   where f.status == 2
+					   orderby f.fecha_pago descending
+					   orderby f.Compras.Proveedores.razon_social ascending
+					   select f).ToList();
+			return View(fac);
+		}
+
+		// GET: Facturas/Details/5
+		public ActionResult Details(int? id)
         {
             if (id == null)
             {

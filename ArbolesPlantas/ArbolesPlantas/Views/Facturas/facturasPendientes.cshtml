@@ -1,0 +1,124 @@
+﻿@model IEnumerable<ArbolesPlantas.Models.Factura>
+
+@{
+	ViewBag.Title = "Pago a proveedores";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<h2>Facturas en espera de aprobaciòn</h2>
+
+<div class="row">
+	<div class="col">
+		<div class="card">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table id="listarFacturas" class="table">
+						<thead class="thead-primary">
+							<tr class="text-center">
+
+								<th scope="col">
+									No. Factura
+								</th>
+								<th scope="col">
+									Fecha de pago
+								</th>
+								<th scope="col">
+									Proveedor
+								</th>
+								<th scope="col">
+									No. Pedido
+								</th>
+								<th scope="col">
+									Total de Pedido
+								</th>
+								<th scope="col">
+									Total a pagar
+								</th>
+								<th scope="col">
+									Status
+								</th>
+
+								<th></th>
+							</tr>
+						</thead>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<td>
+									F-@Html.DisplayFor(modelItem => item.Id)
+								</td>
+								<td>
+									@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.fecha_pago))
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Compras.Proveedores.nombre_corto)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Compras.Id)
+								</td>
+								<td>
+									$@Convert.ToDecimal(item.Compras.total).ToString("#,##0.00")
+								</td>
+								<td>
+									$@Convert.ToDecimal(item.total).ToString("#,##0.00")
+								</td>
+								@*<td>
+										$@Convert.ToDecimal(item.total).ToString("#,##0.00")
+									</td>*@
+								<td>
+									@switch (item.status)
+									{
+										case 0:
+											@Html.Label("En proceso", new { @class = "alert alert-warning" });
+											break;
+									}
+
+
+								</td>
+								@*<td>
+										@if (item.Compras.total > item.total)
+										{
+											<a class="btn btn-info" style="font-size: 15px; color:white;" href="@Url.Action("DetallesFac", "DetalleFacturas", new { id_factura = item.Id })">Detalles</a>
+										}
+									</td>*@
+							</tr>
+						}
+					</table>
+				</div>
+			</div>
+		</div>
+		<br />
+	</div>
+</div>
+
+<script>
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+</script>
+<script>
+		$(document).ready(function () {
+			$('#listarFacturas').DataTable({
+				"ordering": false,
+				"pageLength": 10,
+				"lengthChange": false,
+				language: {
+					search: "Buscar:",
+					info: "",
+					lengthMenu: "Mostrar _MENU_",
+					infoFiltered: "",
+					infoEmpty: "",
+					paginate: {
+						first: "Primero",
+						previous: "Anterior",
+						next: "Siguiente",
+						last: "Ultimo"
+					}
+				}
+			});
+		});
+</script>
+
+
+
