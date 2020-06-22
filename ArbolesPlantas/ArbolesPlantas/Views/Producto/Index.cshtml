@@ -1,0 +1,117 @@
+﻿@model IEnumerable<ProyectoEcommerce.Models.productos>
+
+@{
+    ViewBag.Title = "Lista";
+}
+
+<h2>Lista de Actualizacion de Precios de Productos Existentes y Productos Nuevos</h2>
+
+<p>
+    @Html.ActionLink("Registro de Producto nuevo", "Registroproducto")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Descripcion
+        </th>
+        <th>
+            Cantidad
+        </th>
+        <th>
+            Stock
+        </th>
+
+        <th>
+            <strong>
+                Precio Venta Anterior
+            </strong>
+        </th>
+        <th>
+            <strong>Precio Venta Nuevo </strong>
+        </th>
+        <th>
+            Precio De Compra
+        </th>
+
+
+        <th>
+            Cambio de precio
+        </th>
+        <th>
+
+        </th>
+
+        <th>
+            Detalles
+        </th>
+        <th>
+            Eliminar
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stock)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.precio_venta_anterior)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.precio_venta_nuevo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.precio_compra)
+            </td>
+
+
+
+            <td>
+                <label><input type="checkbox" id="cbox1" value="first_checkbox"> </label><br>
+            </td>
+            <td>
+                @Html.ActionLink("Cambiar Precio", "Editar", new { id = item.Id })
+
+
+            </td>
+            <td> @Html.ActionLink("Detalles", "Details", new { id = item.Id }) </td>
+            <td> @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })</td>
+
+            <td>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button class="btn btn-success btn-lg" onclick="pulsar()">
+                            <i class="fa fa-check-square"></i> Mandar para autorización
+                        </button>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    }
+
+</table>
+
+<SCRIPT languaje="JavaScript">
+function pulsar() {
+
+alert("Solicitud Exitosa");
+}
+</SCRIPT>
+
+   

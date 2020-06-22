@@ -1,0 +1,55 @@
+﻿
+@using ProyectoEcommerce.Models;
+@model IEnumerable<ProyectoEcommerce.Models.productos>
+@{
+    ViewBag.Title = "Tienda";
+    var ent = Model;
+}
+
+<h2>Nuestros productos</h2>
+
+
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in ent)
+        {
+            <div class="col-lg-4">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading"> @item.nombre</div>
+                    <div class="panel-body">
+                        <img class="img-responsive" src="@item.Imagen" />
+                        <p>
+
+                            @item.descripcion
+                        </p>
+
+                        <div class="bottom-area d-flex px-3">
+                            <div class="m-auto d-flex">
+                                <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                    <span><i class="ion-ios-menu"></i></span>
+                                </a>
+                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                    <span><i class="ion-ios-cart"></i></span>
+                                </a>
+
+                            </div>
+                        </div>
+                        <p> $ @item.precio_venta_nuevo</p>
+
+
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>
+
