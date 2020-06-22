@@ -118,7 +118,7 @@ namespace ArbolesPlantas.Controllers
 			db.Entry(facturaP).State = EntityState.Modified;
 			db.SaveChanges();
 
-			return RedirectToAction("facturasPendientes", "Facturas");
+			return RedirectToAction("pagosPendientes", "OrdenPagos");
 		}
 
         // GET: OrdenPagos/Edit/5
