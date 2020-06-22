@@ -13,6 +13,20 @@ namespace ArbolesPlantas.Controllers
 			return View();
 		}
 
+		[Authorize(Roles = "PagoProveedores,Compras")]
+		public ActionResult homeAdmin()
+		{
+			ViewBag.nombre = User.Identity.Name;
+			return View();
+		}
+
+		public ActionResult sinPrivilegios()
+		{
+			ViewBag.Message = "No tienes privilegíos para ingresar a esta sección";
+
+			return View();
+		}
+
 		public ActionResult About()
 		{
 			ViewBag.Message = "Your application description page.";
