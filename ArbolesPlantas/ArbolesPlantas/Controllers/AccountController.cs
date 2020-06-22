@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -17,8 +18,9 @@ namespace ArbolesPlantas.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+		private Entities db = new Entities();
 
-        public AccountController()
+		public AccountController()
         {
         }
 
@@ -68,7 +70,13 @@ namespace ArbolesPlantas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+			var usuarioLog = db.AspNetUsers.SqlQuery("Select * from AspNetUsers where Email=@email",
+			   new SqlParameter("@email", model.Email)).FirstOrDefault();
+			System.Diagnostics.Debug.WriteLine("Usuario email: " + usuarioLog.Email);
+			System.Diagnostics.Debug.WriteLine("Usuario pass: " + usuarioLog.PasswordHash);
+			System.Diagnostics.Debug.WriteLine("Usuario pass: " + usuarioLog.UserName);
+
+			if (!ModelState.IsValid)
             {
                 return View(model);
             }
@@ -79,8 +87,10 @@ namespace ArbolesPlantas.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
+					Session["userDatosAsp"] = usuarioLog;
+					return RedirectToAction("homeAdmin", "Home", new { error = false });
+				//return RedirectToLocal(returnUrl);
+				case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
