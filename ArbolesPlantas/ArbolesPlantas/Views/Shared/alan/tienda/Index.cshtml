@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/alan/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            @if (ViewBag.categoria == "plantas")
+            {
+                <h1 class="text-center">Nuestro catalogo de plantas</h1>
+            }
+            else if (ViewBag.categoria == "arboles")
+            {
+                <h1 class="text-center">Nuestro catalogo de árboles</h1>
+            }
+            else
+            {
+                <h1 class="text-center">Nuestro catalogo de productos</h1>
+            }
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12">
+            <h4>Filtrar por:</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <a href="" class="btn btn-sm btn-outline-primary">Plantas</a>
+        </div>
+        <div class="col-auto">
+            <a href="" class="btn btn-sm btn-outline-primary">Árboles</a>
+        </div>
+    </div>
+</div>
+
+
