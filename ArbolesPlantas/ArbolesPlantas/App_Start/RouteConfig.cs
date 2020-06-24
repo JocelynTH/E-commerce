@@ -16,7 +16,31 @@ namespace ArbolesPlantas
             routes.MapRoute(
                 name: "Tienda",
                 url: "tienda/{categoria}",
-                defaults: new { controller = "Tienda", action = "index", categoria = UrlParameter.Optional }
+                defaults: new { controller = "Tienda", action = "Index", categoria = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Producto",
+                url: "producto/{id}",
+                defaults: new { controller = "Tienda", action = "Show" }
+            );
+
+            routes.MapRoute(
+                name: "ShowCarrito",
+                url: "carrito",
+                defaults: new { controller = "Tienda", action = "ShowCarrito" }
+            );
+
+            routes.MapRoute(
+                name: "AgregarAlCarrito",
+                url: "agregarProducto",
+                defaults: new { controller = "Tienda", action = "agregarProductoAlCarrito" }
+            );
+
+            routes.MapRoute(
+                name: "EliminarDelCarrito",
+                url: "eliminarProducto",
+                defaults: new { controller = "Tienda", action = "eliminarDelCarrito" }
             );
 
             routes.MapRoute(

@@ -189,6 +189,7 @@
     <Compile Include="Models\AspNetUsers.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Carrito.cs" />
     <Compile Include="Models\Compras.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -208,6 +209,7 @@
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ItemCarrito.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Modelo.Context.cs">
       <AutoGen>True</AutoGen>
@@ -513,11 +515,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\alan\_Layout.cshtml" />
     <Content Include="Views\Shared\alan\_NavbarPartial.cshtml" />
-    <Content Include="Views\Shared\alan\tienda\Index.cshtml" />
+    <Content Include="Views\Tienda\Index.cshtml" />
+    <Content Include="Views\Tienda\Show.cshtml" />
+    <Content Include="Views\Carrito\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Tienda\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

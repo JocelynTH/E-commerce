@@ -11,7 +11,7 @@ namespace ArbolesPlantas.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Productos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,18 +21,19 @@ namespace ArbolesPlantas.Models
             this.DetalleFactura = new HashSet<DetalleFactura>();
             this.ofertas = new HashSet<ofertas>();
         }
-    
+
         public int Id { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public int cantidad { get; set; }
         public int stock { get; set; }
         public int tipo { get; set; }
+        public string urlImage { get; set; }
         public double precioVenta { get; set; }
         public double precioCompra { get; set; }
         public int status { get; set; }
         public int id_proveedor { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<detalleCompra> detalleCompra { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -40,5 +41,80 @@ namespace ArbolesPlantas.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ofertas> ofertas { get; set; }
         public virtual Proveedores Proveedores { get; set; }
+
+        public static ICollection<Productos> getPlantas()
+        {
+            return new List<Productos> {
+                new Productos{
+                    Id = 1,
+                    nombre = "Alcatraz",
+                    tipo = 1,
+                    precioVenta = 120,
+                    descripcion = "Su elegancia e inconfundible belleza, hacen del alcatraz una flor de matiz muy sobrio, en la venta de flores el alcatraz tiene un lugar muy especial, por ser de las flores mas comerciales y consentidas por diseñadores florales y por el publico en general.",
+                    urlImage = "/Content/alan/img/p/1.jpg"
+                },
+                new Productos{
+                    Id = 2,
+                    nombre = "Begonia",
+                    tipo = 1,
+                    precioVenta = 150,
+                    descripcion = "El género Begonia comprende alrededor de 1500 especies, de las que alrededor de 150, además de casi 10.000 variedades e híbridos, se comercializan para su uso en jardinería. Son oriundas de las regiones tropicales y subtropicales de América, África y Asia.",
+                    urlImage = "/Content/alan/img/p/2.jpg"
+                },
+                new Productos{
+                    Id = 3,
+                    nombre = "Kalanchoes",
+                    tipo = 1,
+                    precioVenta = 180,
+                    descripcion = "Kalanchoe es un género con alrededor de 125 especies de la familia de las crasuláceas, nativas del Viejo Mundo aunque unas cuantas han sido introducidas en el Nuevo Mundo y crecen en estado silvestre.",
+                    urlImage = "/Content/alan/img/p/3.jpg"
+                },
+                new Productos{
+                    Id = 4,
+                    nombre = "Margarita californias",
+                    tipo = 1,
+                    precioVenta = 120,
+                    descripcion = "Bellis perennis, comúnmente llamada chiribita, margarita común, pascueta o vellorita es una planta herbácea perteneciente a la familia de las Asteráceas muy utilizada a efectos decorativos mezclada con el césped, por su resistencia a la siega.",
+                    urlImage = "/Content/alan/img/p/4.jpg"
+                },
+                new Productos{
+                    Id = 5,
+                    nombre = "Flor del dragón",
+                    tipo = 1,
+                    precioVenta = 200,
+                    descripcion = "Antirrhinum majus es una especie de planta de la familia de las plantagináceas nativa del Mediterráneo, desde Marruecos, Portugal y sur de Francia, hasta el este de Turquía y Siria.​​",
+                    urlImage = "/Content/alan/img/p/5.jpg"
+                },
+                new Productos{
+                    Id = 6,
+                    nombre = "Rosal",
+                    tipo = 1,
+                    precioVenta = 130,
+                    descripcion = "El género Rosa está compuesto por un conocido grupo de arbustos generalmente espinosos y floridos representantes principales de la familia de las rosáceas. Se denomina rosa a la flor de los miembros de este género y rosal a la planta. ",
+                    urlImage = "/Content/alan/img/p/6.jpg"
+                },
+                new Productos{
+                    Id = 7,
+                    nombre = "Viola",
+                    tipo = 1,
+                    precioVenta = 350,
+                    descripcion = "Las violetas son plantas herbáceas, de la familia de las violáceas, con entre 525 y 600 especies.​​ La mayoría de las especies se encuentran en las regiones templadas del hemisferio norte; sin embargo algunas especies están en Hawái, Australasia y los Andes de Sudamérica.",
+                    urlImage = "/Content/alan/img/p/7.jpg"
+                }
+            };
+        }
+
+        public static Productos getProducto(int id)
+        {
+            foreach (Productos p in getPlantas())
+            {
+                if (p.Id == id)
+                {
+                    return p;
+                }
+            }
+            return null;
+
+        }
     }
 }

@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/alan/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            @if (ViewBag.categoria == "plantas")
+            {
+                <h1 class="text-center">Nuestro catálogo de plantas</h1>
+            }
+            else if (ViewBag.categoria == "arboles")
+            {
+                <h1 class="text-center">Nuestro catálogo de árboles</h1>
+            }
+            else
+            {
+                <h1 class="text-center">Nuestro catálogo de productos</h1>
+            }
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12">
+            <h4>Filtrar por:</h4>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            @if (ViewBag.categoria == "plantas")
+            {
+                @Html.ActionLink("Plantas", "Index", "Tienda", new { categoria = "plantas" }, new { @class = "btn btn-sm btn-primary" })
+            }
+            else
+            {
+                @Html.ActionLink("Plantas", "Index", "Tienda", new { categoria = "plantas" }, new { @class = "btn btn-sm btn-outline-success" })
+            }
+        </div>
+        <div class="col-auto">
+            @if (ViewBag.categoria == "arboles")
+            {
+                @Html.ActionLink("Árboles", "Index", "Tienda", new { categoria = "arboles" }, new { @class = "btn btn-sm btn-primary" })
+            }
+            else
+            {
+                @Html.ActionLink("Árboles", "Index", "Tienda", new { categoria = "arboles" }, new { @class = "btn btn-sm btn-outline-success" })
+            }
+        </div>
+    </div>
+    <div class="row mt-5">
+        @foreach (ArbolesPlantas.Models.Productos p in ViewBag.productos)
+        {
+            <div class="col-md-6 col-lg-3 ftco-animate">
+                <div class="product">
+                    <a href="#" class="img-prod">
+                        <img class="img-fluid" src="@p.urlImage"
+                             alt=" Colorlib Template">
+                        <div class="overlay"></div>
+                    </a>
+                    <div class="text py-3 pb-4 px-3 text-center">
+                        <h3>
+                            <a href="#">
+                                @p.nombre
+                            </a>
+                        </h3>
+                        <div class="d-flex">
+                            <div class="pricing">
+                                <p class="price">
+                                    <span>
+                                        $@p.precioVenta
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bottom-area d-flex px-3">
+                            <div class="m-auto d-flex">
+                                <a href="@Url.Action("show","Tienda", new { id = p.Id})"
+                                   class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                    <span><i class="ion-ios-eye"></i></span>
+                                </a>
+                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                    <span><i class="ion-ios-cart"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
