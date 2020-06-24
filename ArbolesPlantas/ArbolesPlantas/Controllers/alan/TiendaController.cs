@@ -24,11 +24,7 @@ namespace ArbolesPlantas.Controllers.alan
             }
             else if (categoria == "arboles")
             {
-                ViewBag.productos = Productos.getPlantas();
-            }
-            else
-            {
-                ViewBag.productos = Productos.getPlantas();
+                ViewBag.productos = Productos.getArboles();
             }
 
             return View("~/Views/Tienda/Index.cshtml");
@@ -42,6 +38,7 @@ namespace ArbolesPlantas.Controllers.alan
 
             return View("~/Views/Tienda/Show.cshtml");
         }
+
 
         [HttpPost]
         public ActionResult eliminarDelCarrito(int id)

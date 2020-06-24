@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "Pagar orden";
+    Layout = "~/Views/Shared/alan/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Total a pagar: $@ViewBag.monto</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h3 class="text-center">Seleccione metodo de pago</h3>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="text-center">
+                        Paypal
+                    </h5>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <a class="btn btn-black" target="_blank" href="https://www.paypal.com/mx/webapps/mpp/account-selection?gclsrc=aw.ds&ds_rl=1246619&gclid=CjwKCAjw88v3BRBFEiwApwLevR0XdyYokDM8XrSS0APPk7rGvfzeK8KZCCLYMTulF8fAaYbdRXZFxBoCXYsQAvD_BwE&gclsrc=aw.ds">
+                        <i class="fab fa-paypal"></i> Ir a Paypal
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="text-center">
+                        Tarjeta
+                    </h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <form id="payForm">
+                        <div class="form-row">
+                            <div id="card" class="col-12"></div>
+                        </div>
+                        <div class="form-row mt-1">
+                            <div class="col-12 form-group">
+                                <label for="card">Numero de tarjeta</label>
+                                <input type="text" id="cardInput" class="form-control" value="" />
+                            </div>
+                            <div class="col-12 form-group">
+                                <label for="name">Nombre</label>
+                                <input type="text" id="name" class="form-control" value="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label for="vencimiento">Mes y año de vencimiento</label>
+                                <input type="text" id="vencimiento" class="form-control" value="" />
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="cvv">CVV/CVC</label>
+                                <input type="text" id="cvv" class="form-control" value="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+                                <input type="button" class="btn btn-block btn-dark" value="Pagar" id="btn-pagar" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr /><hr /><hr /><hr /><hr />
+</div>
+
+@section scripts{
+    <script>
+        var tarjeta = new Card({
+            form: '#payForm',
+            container: '#payForm #card',
+            formSelectors: {
+                numberInput: 'input#cardInput',
+                expiryInput: 'input#vencimiento',
+                cvcInput: 'input#cvv',
+                nameInput: 'input#name'
+            }
+        });
+
+        $('#btn-pagar').on('click', function () {
+            confirm("Se ha procesado el pago");
+        });
+    </script>
+}
+

@@ -7,7 +7,7 @@ namespace ArbolesPlantas.Models
 {
     public class ItemCarrito
     {
-        public static int contadorId { get; set; }
+        public static int contadorId = 0;
         public int id { get; set; }
         public Productos producto { get; set; }
         public int cantidad { get; set; }

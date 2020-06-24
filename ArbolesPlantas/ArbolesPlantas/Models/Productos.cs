@@ -14,12 +14,16 @@ namespace ArbolesPlantas.Models
 
     public partial class Productos
     {
+        public static int contadorID { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Productos()
         {
             this.detalleCompra = new HashSet<detalleCompra>();
             this.DetalleFactura = new HashSet<DetalleFactura>();
             this.ofertas = new HashSet<ofertas>();
+            this.Id = contadorID + 1;
+            contadorID++;
         }
 
         public int Id { get; set; }
@@ -34,6 +38,110 @@ namespace ArbolesPlantas.Models
         public int status { get; set; }
         public int id_proveedor { get; set; }
 
+        public static List<Productos> productos = new List<Productos> {
+                new Productos(){
+                    nombre = "Alcatraz",
+                    tipo = 1,
+                    precioVenta = 120,
+                    descripcion = "Su elegancia e inconfundible belleza, hacen del alcatraz una flor de matiz muy sobrio, en la venta de flores el alcatraz tiene un lugar muy especial, por ser de las flores mas comerciales y consentidas por diseñadores florales y por el publico en general.",
+                    urlImage = "/Content/alan/img/p/1.jpg"
+                },
+                new Productos(){
+                    nombre = "Begonia",
+                    tipo = 1,
+                    precioVenta = 150,
+                    descripcion = "El género Begonia comprende alrededor de 1500 especies, de las que alrededor de 150, además de casi 10.000 variedades e híbridos, se comercializan para su uso en jardinería. Son oriundas de las regiones tropicales y subtropicales de América, África y Asia.",
+                    urlImage = "/Content/alan/img/p/2.jpg"
+                },
+                new Productos(){
+                    nombre = "Kalanchoes",
+                    tipo = 1,
+                    precioVenta = 180,
+                    descripcion = "Kalanchoe es un género con alrededor de 125 especies de la familia de las crasuláceas, nativas del Viejo Mundo aunque unas cuantas han sido introducidas en el Nuevo Mundo y crecen en estado silvestre.",
+                    urlImage = "/Content/alan/img/p/3.jpg"
+                },
+                new Productos(){
+                    nombre = "Margarita californias",
+                    tipo = 1,
+                    precioVenta = 120,
+                    descripcion = "Bellis perennis, comúnmente llamada chiribita, margarita común, pascueta o vellorita es una planta herbácea perteneciente a la familia de las Asteráceas muy utilizada a efectos decorativos mezclada con el césped, por su resistencia a la siega.",
+                    urlImage = "/Content/alan/img/p/4.jpg"
+                },
+                new Productos(){
+                    nombre = "Flor del dragón",
+                    tipo = 1,
+                    precioVenta = 200,
+                    descripcion = "Antirrhinum majus es una especie de planta de la familia de las plantagináceas nativa del Mediterráneo, desde Marruecos, Portugal y sur de Francia, hasta el este de Turquía y Siria.​​",
+                    urlImage = "/Content/alan/img/p/5.jpg"
+                },
+                new Productos(){
+                    nombre = "Rosal",
+                    tipo = 1,
+                    precioVenta = 130,
+                    descripcion = "El género Rosa está compuesto por un conocido grupo de arbustos generalmente espinosos y floridos representantes principales de la familia de las rosáceas. Se denomina rosa a la flor de los miembros de este género y rosal a la planta. ",
+                    urlImage = "/Content/alan/img/p/6.jpg"
+                },
+                new Productos(){
+                    nombre = "Viola",
+                    tipo = 1,
+                    precioVenta = 350,
+                    descripcion = "Las violetas son plantas herbáceas, de la familia de las violáceas, con entre 525 y 600 especies.​​ La mayoría de las especies se encuentran en las regiones templadas del hemisferio norte; sin embargo algunas especies están en Hawái, Australasia y los Andes de Sudamérica.",
+                    urlImage = "/Content/alan/img/p/7.jpg"
+                }
+            };
+
+        public static List<Productos> arboles = new List<Productos>() {
+                new Productos{
+                    nombre = "Magnolia, Magnolia grandiflora 'Nantais'",
+                    tipo = 2,
+                    precioVenta = 300,
+                    descripcion = "Maceta de 5 litros. Altura de la planta: Superior a 50 cm.",
+                    urlImage = "/Content/alan/img/a/1.jpg"
+                },
+                new Productos{
+                    nombre = "Sequoiadendron giganteum 'Pendulum', secuoya gigante pendula",
+                    tipo = 2,
+                    precioVenta = 1200,
+                    descripcion = "Maceta de 20 litros. Altura de la planta: podada a 120 cm.",
+                    urlImage = "/Content/alan/img/a/2.jpg"
+                },
+                new Productos{
+                    nombre = "Acebo o acivro en maceta. Ilex aquifolium",
+                    tipo = 2,
+                    precioVenta = 2400,
+                    descripcion = "Acebo en maceta de 40 o 50 litros. Altura 150 o más cm y podados en forma de copa.",
+                    urlImage = "/Content/alan/img/a/3.jpg"
+                },
+                new Productos{
+                    nombre = "Algarrobo, Ceratonia siliqua en alveolo forestal",
+                    tipo = 2,
+                    precioVenta = 90,
+                    descripcion = "Plantel en alveolo forestal. Altura de 10 o más cm. Precio unitario por planta",
+                    urlImage = "/Content/alan/img/a/4.jpg"
+                },
+                new Productos{
+                    nombre = "Magnolia común, Magnolia grandiflora Gallisonensis",
+                    tipo = 2,
+                    precioVenta = 340,
+                    descripcion = "Maceta de 5 litros. Altura planta 50 o más cm",
+                    urlImage = "/Content/alan/img/a/5.jpg"
+                },
+                new Productos{
+                    nombre = "Tuya esmeralda, tuya del Canada",
+                    tipo = 2,
+                    precioVenta = 180,
+                    descripcion = "Maceta de 2,5 litros. Altura de la planta 40/60 cm.",
+                    urlImage = "/Content/alan/img/a/6.jpg"
+                },
+                new Productos{
+                    nombre = "Catalpa, árbol trompeta, Catalpa bignonioides",
+                    tipo = 2,
+                    precioVenta = 320,
+                    descripcion = "Maceta de 2 litros. Altura de la planta 90 cm .",
+                    urlImage = "/Content/alan/img/a/7.jpg"
+                },
+            };
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<detalleCompra> detalleCompra { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -44,64 +152,12 @@ namespace ArbolesPlantas.Models
 
         public static ICollection<Productos> getPlantas()
         {
-            return new List<Productos> {
-                new Productos{
-                    Id = 1,
-                    nombre = "Alcatraz",
-                    tipo = 1,
-                    precioVenta = 120,
-                    descripcion = "Su elegancia e inconfundible belleza, hacen del alcatraz una flor de matiz muy sobrio, en la venta de flores el alcatraz tiene un lugar muy especial, por ser de las flores mas comerciales y consentidas por diseñadores florales y por el publico en general.",
-                    urlImage = "/Content/alan/img/p/1.jpg"
-                },
-                new Productos{
-                    Id = 2,
-                    nombre = "Begonia",
-                    tipo = 1,
-                    precioVenta = 150,
-                    descripcion = "El género Begonia comprende alrededor de 1500 especies, de las que alrededor de 150, además de casi 10.000 variedades e híbridos, se comercializan para su uso en jardinería. Son oriundas de las regiones tropicales y subtropicales de América, África y Asia.",
-                    urlImage = "/Content/alan/img/p/2.jpg"
-                },
-                new Productos{
-                    Id = 3,
-                    nombre = "Kalanchoes",
-                    tipo = 1,
-                    precioVenta = 180,
-                    descripcion = "Kalanchoe es un género con alrededor de 125 especies de la familia de las crasuláceas, nativas del Viejo Mundo aunque unas cuantas han sido introducidas en el Nuevo Mundo y crecen en estado silvestre.",
-                    urlImage = "/Content/alan/img/p/3.jpg"
-                },
-                new Productos{
-                    Id = 4,
-                    nombre = "Margarita californias",
-                    tipo = 1,
-                    precioVenta = 120,
-                    descripcion = "Bellis perennis, comúnmente llamada chiribita, margarita común, pascueta o vellorita es una planta herbácea perteneciente a la familia de las Asteráceas muy utilizada a efectos decorativos mezclada con el césped, por su resistencia a la siega.",
-                    urlImage = "/Content/alan/img/p/4.jpg"
-                },
-                new Productos{
-                    Id = 5,
-                    nombre = "Flor del dragón",
-                    tipo = 1,
-                    precioVenta = 200,
-                    descripcion = "Antirrhinum majus es una especie de planta de la familia de las plantagináceas nativa del Mediterráneo, desde Marruecos, Portugal y sur de Francia, hasta el este de Turquía y Siria.​​",
-                    urlImage = "/Content/alan/img/p/5.jpg"
-                },
-                new Productos{
-                    Id = 6,
-                    nombre = "Rosal",
-                    tipo = 1,
-                    precioVenta = 130,
-                    descripcion = "El género Rosa está compuesto por un conocido grupo de arbustos generalmente espinosos y floridos representantes principales de la familia de las rosáceas. Se denomina rosa a la flor de los miembros de este género y rosal a la planta. ",
-                    urlImage = "/Content/alan/img/p/6.jpg"
-                },
-                new Productos{
-                    Id = 7,
-                    nombre = "Viola",
-                    tipo = 1,
-                    precioVenta = 350,
-                    descripcion = "Las violetas son plantas herbáceas, de la familia de las violáceas, con entre 525 y 600 especies.​​ La mayoría de las especies se encuentran en las regiones templadas del hemisferio norte; sin embargo algunas especies están en Hawái, Australasia y los Andes de Sudamérica.",
-                    urlImage = "/Content/alan/img/p/7.jpg"
-                }
-            };
+            return productos;
+        }
+
+        public static ICollection<Productos> getArboles()
+        {
+            return arboles;
         }
 
         public static Productos getProducto(int id)
@@ -113,6 +169,15 @@ namespace ArbolesPlantas.Models
                     return p;
                 }
             }
+
+            foreach (Productos p in getArboles())
+            {
+                if (p.Id == id)
+                {
+                    return p;
+                }
+            }
+
             return null;
 
         }

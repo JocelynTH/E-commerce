@@ -1,4 +1,6 @@
-﻿@{
+﻿@using ArbolesPlantas.Models
+
+@{
     Layout = "~/Views/Shared/alan/_Layout.cshtml";
     ViewBag.Title = "Inicio";
 }
@@ -13,7 +15,9 @@
                     <div class="col-md-12 ftco-animate text-center">
                         <h1 class="mb-2">Decora tu espacio personal</h1>
                         <h2 class="subheading mb-4">Encuentra plantas que se adapten a tu entorno</h2>
-                        <p><a href="#" class="btn btn-primary">Ver plantas</a></p>
+                        <p>
+                            <a href="@Url.Action("Index","Tienda",new { categoria = "plantas" })" class="btn btn-primary">Ver plantas</a>
+                        </p>
                     </div>
 
                 </div>
@@ -27,7 +31,7 @@
                     <div class="col-sm-12 ftco-animate text-center">
                         <h1 class="mb-2">Dale vida a tu jardín con un árbol</h1>
                         <h2 class="subheading mb-4">Encuentra árboles que se adapten a cualquier tamaño de jardín</h2>
-                        <p><a href="#" class="btn btn-primary">Ver árboles</a></p>
+                        <p><a href="@Url.Action("Index","Tienda",new { categoria = "arboles" })" class="btn btn-primary">Ver árboles</a></p>
                     </div>
 
                 </div>
@@ -86,96 +90,96 @@
                             <div class="text text-center">
                                 <h2>Plantas</h2>
                                 <p>Algunas de nuestras principales plantas</p>
-                                <p><a href="#" class="btn btn-primary">Ver catálogo completo</a></p>
+                                <p>
+                                    <a href="@Url.Action("Index","Tienda",new { categoria = "plantas"})" class="btn btn-primary">Ver catálogo completo</a>
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col-md-6 col-lg-3 ftco-animate">
-                        <div class="product">
-                            <a href="#" class="img-prod">
-                                <img class="img-fluid" src="~/Content/alan/img/p/1.jpg"
-                                     alt=" Colorlib Template">
-                                <div class="overlay"></div>
-                            </a>
-                            <div class="text py-3 pb-4 px-3 text-center">
-                                <h3><a href="#">Alcatraz</a></h3>
-                                <div class="d-flex">
-                                    <div class="pricing">
-                                        <p class="price"><span>$120.00</span></p>
+                    @foreach (Productos p in Productos.getPlantas().Take(4))
+                    {
+                        <div class="col-md-6 col-lg-3 ftco-animate">
+                            <div class="product">
+                                <a href="#" class="img-prod">
+                                    <img class="img-fluid" src="@p.urlImage"
+                                         alt=" Colorlib Template">
+                                    <div class="overlay"></div>
+                                </a>
+                                <div class="text py-3 pb-4 px-3 text-center">
+                                    <h3><a href="#">@p.nombre</a></h3>
+                                    <div class="d-flex">
+                                        <div class="pricing">
+                                            <p class="price"><span>$@p.precioVenta</span></p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="bottom-area d-flex px-3">
-                                    <div class="m-auto d-flex">
-                                        <a href="#"
-                                           class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                            <span><i class="ion-ios-menu"></i></span>
-                                        </a>
-                                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                            <span><i class="ion-ios-cart"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 ftco-animate">
-                        <div class="product">
-                            <a href="#" class="img-prod">
-                                <img class="img-fluid" src="~/Content/alan/img/p/2.jpg"
-                                     alt=" Colorlib Template">
-                                <div class="overlay"></div>
-                            </a>
-                            <div class="text py-3 pb-4 px-3 text-center">
-                                <h3><a href="#">Begonia</a></h3>
-                                <div class="d-flex">
-                                    <div class="pricing">
-                                        <p class="price"><span>$120.00</span></p>
-                                    </div>
-                                </div>
-                                <div class="bottom-area d-flex px-3">
-                                    <div class="m-auto d-flex">
-                                        <a href="#"
-                                           class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                            <span><i class="ion-ios-menu"></i></span>
-                                        </a>
-                                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                            <span><i class="ion-ios-cart"></i></span>
-                                        </a>
+                                    <div class="bottom-area d-flex px-3">
+                                        <div class="m-auto d-flex">
+                                            <a href="@Url.Action("Show","Tienda", new { id = p.Id })"
+                                               class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                                <span><i class="ion-ios-eye"></i></span>
+                                            </a>
+                                            <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                <span><i class="ion-ios-cart"></i></span>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 col-md-auto order-md-last align-items-stretch d-flex">
+                        <div class="category-wrap-2 ftco-animate img align-self-stretch d-flex">
+                            <div class="text text-center">
+                                <h2>Árboles</h2>
+                                <p>Algunas de nuestras principales Árboles</p>
+                                <p>
+                                    <a href="@Url.Action("Index","Tienda",new { categoria = "arboles"})" class="btn btn-primary">Ver catálogo completo</a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-lg-3 ftco-animate">
-                        <div class="product">
-                            <a href="#" class="img-prod">
-                                <img class="img-fluid" src="~/Content/alan/img/p/3.jpg"
-                                     alt=" Colorlib Template">
-                                <div class="overlay"></div>
-                            </a>
-                            <div class="text py-3 pb-4 px-3 text-center">
-                                <h3><a href="#">Kalanchoes</a></h3>
-                                <div class="d-flex">
-                                    <div class="pricing">
-                                        <p class="price"><span>$120.00</span></p>
+                </div>
+                <div class="row justify-content-center">
+                    @foreach (Productos p in Productos.getArboles().Take(4))
+                    {
+                        <div class="col-md-6 col-lg-3 ftco-animate">
+                            <div class="product">
+                                <a href="#" class="img-prod">
+                                    <img class="img-fluid" src="@p.urlImage"
+                                         alt=" Colorlib Template">
+                                    <div class="overlay"></div>
+                                </a>
+                                <div class="text py-3 pb-4 px-3 text-center">
+                                    <h3><a href="#">@p.nombre</a></h3>
+                                    <div class="d-flex">
+                                        <div class="pricing">
+                                            <p class="price"><span>$@p.precioVenta</span></p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="bottom-area d-flex px-3">
-                                    <div class="m-auto d-flex">
-                                        <a href="#"
-                                           class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                            <span><i class="ion-ios-menu"></i></span>
-                                        </a>
-                                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                            <span><i class="ion-ios-cart"></i></span>
-                                        </a>
+                                    <div class="bottom-area d-flex px-3">
+                                        <div class="m-auto d-flex">
+                                            <a href="@Url.Action("Show","Tienda", new { id = p.Id })"
+                                               class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                                <span><i class="ion-ios-eye"></i></span>
+                                            </a>
+                                            <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                <span><i class="ion-ios-cart"></i></span>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>

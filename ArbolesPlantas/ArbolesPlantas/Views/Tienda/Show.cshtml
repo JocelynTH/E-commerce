@@ -1,9 +1,11 @@
-﻿
+﻿@using ArbolesPlantas.Models
+
+
 @{
     ViewBag.Title = "Show";
     Layout = "~/Views/Shared/alan/_Layout.cshtml";
 
-    ArbolesPlantas.Models.Productos producto = (ArbolesPlantas.Models.Productos)ViewBag.producto;
+    Productos producto = (Productos)ViewBag.producto;
 }
 
 <div class="container">
