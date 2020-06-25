@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ProyectoFinanzas.Models.detalleCompra>
+
+@{
+    ViewBag.Title = "Detalle";
+    Layout = "~/Views/Shared/_LayoutUsuario.cshtml";
+}
+
+<h2 class="badge-light text-center">Detalle de Compras</h2>
+
+<table class="table table-striped alert-success" id="myTable">
+    <thead class="thead-light">
+        <tr>
+            <th style="text-align:center">
+                @Html.DisplayName("# de compra")
+            </th>
+            <th style="text-align:center">
+                @Html.DisplayName("Producto")
+            </th>
+            <th style="text-align:center">
+                @Html.DisplayName("Cantidad")
+            </th>
+            <th style="text-align:center">
+                @Html.DisplayName("Precio")
+            </th>
+            <th style="text-align:center">
+                @Html.DisplayName("Localiza tu producto")
+            </th>
+        </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Compras.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Productos.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cantidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.precio_compra)
+                </td>
+                <td>
+
+                    @Html.ActionLink("Ver Seguimiento de pedido", "SeguimientoPedido", new { id = item.Id })
+
+                </td>
+            </tr>
+        }
+
+</table>

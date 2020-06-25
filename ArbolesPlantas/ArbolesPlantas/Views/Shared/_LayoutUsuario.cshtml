@@ -58,6 +58,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+    <link href="~/Content/Seguimiento.css" rel="stylesheet" />
 
 
     <style>
@@ -94,7 +96,10 @@
                 #myTable tr.header, #myTable tr:hover {
                     background-color: #f1f1f1;
                 }
+
     </style>
+
+
 </head>
 
 <body class="goto-here">
@@ -110,10 +115,10 @@
                         </div>
                         <div class="col-md pr-4 d-flex topper align-items-center">
                             <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-                            <span class="text">administradorFinanzas@arbolesyplantas.com</span>
+                            <span class="text">14280604@gmail.com</span>
                         </div>
                         <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-                            <span class="text">3-5 Finanzas &amp;</span>
+                            <span class="text">3-5 Usuario &amp;</span>
                         </div>
                     </div>
                 </div>
@@ -134,43 +139,16 @@
                         @Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
                     </li>
 
-                    <li class="nav-item active">
-                        @Html.ActionLink("Pago a Proveedores", "Index", "Facturas", new { area = "" }, new { @class = "nav-link" })
-                    </li>
 
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" id="detalleCompras" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class=" fas fa-user-circle"></i>Detalle Compras
+                        <a href="#" class="nav-link dropdown-toggle" id="detalle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class=" fas fa-user-circle"></i>Compras
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="detalleCompras">
-                            <a href="@Url.Action("detalle","detalleCompras")" class="dropdown-item">Ver Historial de compras</a>
+                        <div class="dropdown-menu" aria-labelledby="detalle">
+                            <a href="@Url.Action("detalle","detalleCompras")" class="dropdown-item">Ver Historial Compras</a>
+                            <div class="dropdown-divider"></div>
+                            
                         </div>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" id="finanzas" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class=" fas fa-user-circle"></i>Finanzas
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="finanzas">
-                            <!-- <a href="Url.Action("FinanzasCompras","presupuestoes")" class="dropdown-item">Solicitudes Presupuestos</a>-->
-                            <div class="dropdown-divider"></div>
-                            <a href="@Url.Action("FinanzasProductosOferta","DetalleProductoes")" class="dropdown-item">Solicitudes de Oferta</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="@Url.Action("FinanzasProductos","DetalleProductoes")" class="dropdown-item">Solicitudes cambio de precio</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="@Url.Action("FinanzasProveedores","ordenPagoes")" class="dropdown-item">Solicitudes de Pago a Proveedores</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="@Url.Action("FinanzasDevoluciones","devolucions")" class="dropdown-item">Solicitudes de Devolución</a>
-
-                        </div>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="@Url.Action("Index","Home")" class="nav-link">Ventas</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="@Url.Action("Index","Home")" class="nav-link">Almacen y Envio</a>
                     </li>
 
                 </ul>

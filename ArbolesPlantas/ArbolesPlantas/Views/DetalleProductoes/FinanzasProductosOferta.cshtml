@@ -1,48 +1,47 @@
 ﻿@model IEnumerable<ProyectoFinanzas.Models.DetalleProducto>
 
 @{
-    ViewBag.Title = "FinanzasProductos";
+    ViewBag.Title = "FinanzasProductosOfertas";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2 class="alert-success text-center">Historial Precio de Venta Productos</h2>
-<div class="align-self-end">
+<h2 class="text-center">Solicitudes de cambio de precio por Oferta</h2>
 
-<input class="border-success" style="border-radius:3px 10px"  type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar producto" title="Type in a name">
-</div>
-<br />
-<table class="table table-striped alert-info" id="myTable">
-    <thead class="thead-light alert-success text-center">
+<br>
+<table class="table table-striped alert-success" id="myTable">
+    <thead class="thead-light text-center">
         <tr>
-            <th style="text-align:center">
+            <th>
                 @Html.DisplayName("# Solicitud")
             </th>
             <th>
                 @Html.DisplayName("Producto")
             </th>
-            <th style="text-align:center">
+            <th>
                 @Html.DisplayName("Fecha de Alta")
             </th>
-            <th style="text-align:center">
-                @Html.DisplayName("Precio Anterior/Actual")
+            <th>
+                @Html.DisplayName("Precio Anterior $")
             </th>
-            <th style="text-align:center">
-                @Html.DisplayName("Porcentaje Descuento")
+            <th>
+                @Html.DisplayName("Descuento %")
             </th>
-            <th style="text-align:center">
-                @Html.DisplayName("Precio con descuento/solicitado")
+            <th>
+                @Html.DisplayName("Precio con Descuento $")
             </th>
-            <th style="text-align:center">
+            <th>
                 @Html.DisplayName("Razón")
             </th>
-            <th style="text-align:center">
+            <th>
                 @Html.DisplayName("Status")
             </th>
 
-
+            <th>
+                @Html.DisplayName("Acciones")
+            </th>
+            <th></th>
         </tr>
     </thead>
-
         @foreach (var item in Model)
         {
     <tr>
@@ -82,7 +81,16 @@
             }
         </td>
 
+        <td>
+            @Html.ActionLink("Aprobar", "AprobarStatus", new { id = item.Id }) |
+            @Html.ActionLink("Rechazar", "RechazarStatus", new { id = item.Id })
+        </td>
     </tr>
         }
 
 </table>
+<br />
+<button class="alert-info">
+    @Html.ActionLink(" Ver Historial Productos", "HistorialProductos")
+</button>
+

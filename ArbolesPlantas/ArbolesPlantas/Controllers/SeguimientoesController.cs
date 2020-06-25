@@ -10,128 +10,117 @@ using ProyectoFinanzas.Models;
 
 namespace ProyectoFinanzas.Controllers
 {
-    public class detalleComprasController : Controller
+    public class SeguimientoesController : Controller
     {
         private Entities db = new Entities();
 
-        // GET: detalleCompras
+        // GET: Seguimientoes
         public ActionResult Index()
         {
-            var detalleCompra = db.detalleCompra.Include(d => d.Compras).Include(d => d.Productos);
-            return View(detalleCompra.ToList());
+            var seguimiento = db.Seguimiento.Include(s => s.detalleCompra);
+            return View(seguimiento.ToList());
         }
-
         public ActionResult SeguimientoPedido()
         {
-            var detalleCompra = db.detalleCompra.Include(d => d.Compras).Include(d => d.Productos);
+            var seguimiento = db.Seguimiento.Include(s => s.detalleCompra);
             return View();
         }
 
-        public ActionResult detalle()
-        {
-            var detalleCompra = db.detalleCompra.Include(d => d.Compras).Include(d => d.Productos);
-            return View(detalleCompra.ToList());
-        }
-
-        // GET: detalleCompras/Details/5
+        // GET: Seguimientoes/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            detalleCompra detalleCompra = db.detalleCompra.Find(id);
-            if (detalleCompra == null)
+            Seguimiento seguimiento = db.Seguimiento.Find(id);
+            if (seguimiento == null)
             {
                 return HttpNotFound();
             }
-            return View(detalleCompra);
+            return View(seguimiento);
         }
 
-        // GET: detalleCompras/Create
+        // GET: Seguimientoes/Create
         public ActionResult Create()
         {
-            ViewBag.id_compra = new SelectList(db.Compras, "Id", "Id");
-            ViewBag.id_producto = new SelectList(db.Productos, "Id", "nombre");
+            ViewBag.id_detalleCompra = new SelectList(db.detalleCompra, "Id", "Id");
             return View();
         }
 
-        // POST: detalleCompras/Create
+        // POST: Seguimientoes/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,id_compra,id_producto,cantidad,precio_compra,status")] detalleCompra detalleCompra)
+        public ActionResult Create([Bind(Include = "Id,id_detalleCompra,guia,fechaSalida,fechaLlegada,destino,origen,status")] Seguimiento seguimiento)
         {
             if (ModelState.IsValid)
             {
-                db.detalleCompra.Add(detalleCompra);
+                db.Seguimiento.Add(seguimiento);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.id_compra = new SelectList(db.Compras, "Id", "Id", detalleCompra.id_compra);
-            ViewBag.id_producto = new SelectList(db.Productos, "Id", "nombre", detalleCompra.id_producto);
-            return View(detalleCompra);
+            ViewBag.id_detalleCompra = new SelectList(db.detalleCompra, "Id", "Id", seguimiento.id_detalleCompra);
+            return View(seguimiento);
         }
 
-        // GET: detalleCompras/Edit/5
+        // GET: Seguimientoes/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            detalleCompra detalleCompra = db.detalleCompra.Find(id);
-            if (detalleCompra == null)
+            Seguimiento seguimiento = db.Seguimiento.Find(id);
+            if (seguimiento == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.id_compra = new SelectList(db.Compras, "Id", "Id", detalleCompra.id_compra);
-            ViewBag.id_producto = new SelectList(db.Productos, "Id", "nombre", detalleCompra.id_producto);
-            return View(detalleCompra);
+            ViewBag.id_detalleCompra = new SelectList(db.detalleCompra, "Id", "Id", seguimiento.id_detalleCompra);
+            return View(seguimiento);
         }
 
-        // POST: detalleCompras/Edit/5
+        // POST: Seguimientoes/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,id_compra,id_producto,cantidad,precio_compra,status")] detalleCompra detalleCompra)
+        public ActionResult Edit([Bind(Include = "Id,id_detalleCompra,guia,fechaSalida,fechaLlegada,destino,origen,status")] Seguimiento seguimiento)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(detalleCompra).State = EntityState.Modified;
+                db.Entry(seguimiento).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id_compra = new SelectList(db.Compras, "Id", "Id", detalleCompra.id_compra);
-            ViewBag.id_producto = new SelectList(db.Productos, "Id", "nombre", detalleCompra.id_producto);
-            return View(detalleCompra);
+            ViewBag.id_detalleCompra = new SelectList(db.detalleCompra, "Id", "Id", seguimiento.id_detalleCompra);
+            return View(seguimiento);
         }
 
-        // GET: detalleCompras/Delete/5
+        // GET: Seguimientoes/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            detalleCompra detalleCompra = db.detalleCompra.Find(id);
-            if (detalleCompra == null)
+            Seguimiento seguimiento = db.Seguimiento.Find(id);
+            if (seguimiento == null)
             {
                 return HttpNotFound();
             }
-            return View(detalleCompra);
+            return View(seguimiento);
         }
 
-        // POST: detalleCompras/Delete/5
+        // POST: Seguimientoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            detalleCompra detalleCompra = db.detalleCompra.Find(id);
-            db.detalleCompra.Remove(detalleCompra);
+            Seguimiento seguimiento = db.Seguimiento.Find(id);
+            db.Seguimiento.Remove(seguimiento);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

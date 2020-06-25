@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ProyectoFinanzas.Models.devolucion>
+
+@{
+    ViewBag.Title = "FinanzasDevoluciones";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 class="badge-light text-center">Devoluciones</h2>
+
+
+<table class="table table-striped alert-success" id="myTable">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                @Html.DisplayName("# Factura")
+            </th>
+            <th>
+                @Html.DisplayName("Motivo de devolución")
+            </th>
+            <th>
+                @Html.DisplayName("Opción de devolución")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+        </tr>
+    </thead>
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Facturas.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descripcion)
+        </td>
+        <td>
+            @switch (item.id_factura)
+            {
+                case 1:
+                    @Html.Label("Reembolso", new { @Class = "alert alert-info" });
+                    break;
+                case 2:
+                    @Html.Label("Reembolso", new { @Class = "alert alert-info" });
+                    break;
+                case 3:
+                    @Html.Label("Cambiar producto", new { @Class = "alert alert-info" });
+                    break;
+            }
+        </td>
+        <td>
+            @switch (item.status)
+            {
+                case 1:
+                    @Html.Label("Pendiente", new { @Class = "alert alert-warning" });
+                    break;
+                case 2:
+                    @Html.Label("Rechazado", new { @Class = "alert alert-danger" });
+                    break;
+                case 3:
+                    @Html.Label("Aprobado", new { @Class = "alert alert-success" });
+                    break;
+            }
+        </td>
+
+    </tr>
+        }
+
+</table>

@@ -182,6 +182,7 @@
     <Compile Include="Controllers\presupuestoesController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
+    <Compile Include="Controllers\SeguimientoesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -589,6 +590,18 @@
     <Content Include="Views\Proveedores\Edit.cshtml" />
     <Content Include="Views\Proveedores\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\detalleCompras\detalle.cshtml" />
+    <Content Include="Views\detalleCompras\SeguimientoPedido.cshtml" />
+    <Content Include="Views\DetalleProductoes\FinanzasProductosOferta.cshtml" />
+    <Content Include="Views\devolucions\FinanzasDevoluciones.cshtml" />
+    <Content Include="Views\devolucions\HistorialDevoluciones.cshtml" />
+    <Content Include="Views\Seguimientoes\Create.cshtml" />
+    <Content Include="Views\Seguimientoes\Delete.cshtml" />
+    <Content Include="Views\Seguimientoes\Details.cshtml" />
+    <Content Include="Views\Seguimientoes\Edit.cshtml" />
+    <Content Include="Views\Seguimientoes\Index.cshtml" />
+    <Content Include="Views\Seguimientoes\SeguimientoPedido.cshtml" />
+    <Content Include="Views\Shared\_LayoutUsuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

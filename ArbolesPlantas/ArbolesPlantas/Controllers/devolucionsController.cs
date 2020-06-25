@@ -21,6 +21,38 @@ namespace ProyectoFinanzas.Controllers
             return View(devolucion.ToList());
         }
 
+        public ActionResult FinanzasDevoluciones()
+        {
+            var listafiltro = (from p in db.devolucion where p.status == 1 select p).ToList();
+            return View(listafiltro);
+        }
+
+        public ActionResult AprobarStatus(int? id)
+        {
+            devolucion selected = db.devolucion.Find(id);
+
+            db.Database.ExecuteSqlCommand("UPDATE devolucion SET status = 3 WHERE Id=" + id);
+            db.SaveChanges();
+            return RedirectToAction("FinanzasDevoluciones", "devolucions");
+
+        }
+        public ActionResult RechazarStatus(int? id)
+        {
+            //            Compras selected = db.Compras.Find(id);
+
+            db.Database.ExecuteSqlCommand("UPDATE devolucion SET status = 2 WHERE Id=" + id);
+            db.SaveChanges();
+            return RedirectToAction("FinanzasDevoluciones", "devolucions");
+
+        }
+
+        public ActionResult HistorialDevoluciones()
+        {
+            var devolucion = db.devolucion.Include(d => d.Facturas);
+            return View(devolucion.ToList());
+        }
+
+
         // GET: devolucions/Details/5
         public ActionResult Details(int? id)
         {
@@ -39,7 +71,7 @@ namespace ProyectoFinanzas.Controllers
         // GET: devolucions/Create
         public ActionResult Create()
         {
-            ViewBag.id_factura = new SelectList(db.Facturas, "Id", "metodo_pago");
+            ViewBag.id_factura = new SelectList(db.Facturas, "Id", "Id");
             return View();
         }
 
@@ -57,7 +89,7 @@ namespace ProyectoFinanzas.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.id_factura = new SelectList(db.Facturas, "Id", "metodo_pago", devolucion.id_factura);
+            ViewBag.id_factura = new SelectList(db.Facturas, "Id", "Id", devolucion.id_factura);
             return View(devolucion);
         }
 
@@ -73,7 +105,7 @@ namespace ProyectoFinanzas.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.id_factura = new SelectList(db.Facturas, "Id", "metodo_pago", devolucion.id_factura);
+            ViewBag.id_factura = new SelectList(db.Facturas, "Id", "Id", devolucion.id_factura);
             return View(devolucion);
         }
 
@@ -90,7 +122,7 @@ namespace ProyectoFinanzas.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id_factura = new SelectList(db.Facturas, "Id", "metodo_pago", devolucion.id_factura);
+            ViewBag.id_factura = new SelectList(db.Facturas, "Id", "Id", devolucion.id_factura);
             return View(devolucion);
         }
 

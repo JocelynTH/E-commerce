@@ -44,7 +44,7 @@ namespace ProyectoFinanzas.Controllers
         {
             //            Compras selected = db.Compras.Find(id);
 
-            db.Database.ExecuteSqlCommand("UPDATE DetalleProducto SET status = 2 WHERE Id=" + id);
+            db.Database.ExecuteSqlCommand("UPDATE ordenPago SET status = 2 WHERE Id=" + id);
             db.SaveChanges();
             return RedirectToAction("FinanzasProveedores", "ordenPagoes");
 

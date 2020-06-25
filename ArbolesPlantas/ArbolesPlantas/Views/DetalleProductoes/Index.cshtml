@@ -30,7 +30,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Productos.nombre)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.razon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.porcentajeDescuento)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -54,9 +59,15 @@
             @Html.DisplayFor(modelItem => item.Productos.nombre)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.DisplayFor(modelItem => item.razon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.porcentajeDescuento)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }

@@ -23,7 +23,12 @@ namespace ProyectoFinanzas.Controllers
 
         public ActionResult FinanzasProductos()
         {
-            var listafiltro = (from p in db.DetalleProducto where p.status == 1 select p).ToList();
+            var listafiltro = (from p in db.DetalleProducto where p.status == 1 where p.porcentajeDescuento == 0 select p).ToList();
+            return View(listafiltro);
+        }
+        public ActionResult FinanzasProductosOferta()
+        {
+            var listafiltro = (from p in db.DetalleProducto where p.status == 1 where p.porcentajeDescuento!=0 select p).ToList();
             return View(listafiltro);
         }
         public ActionResult HistorialProductos()
@@ -78,7 +83,7 @@ namespace ProyectoFinanzas.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,id_producto,fechaAlta,areaSolicita,precio_anterior,precio_nuevo,status")] DetalleProducto detalleProducto)
+        public ActionResult Create([Bind(Include = "Id,id_producto,fechaAlta,areaSolicita,precio_anterior,precio_nuevo,status,razon,porcentajeDescuento")] DetalleProducto detalleProducto)
         {
             if (ModelState.IsValid)
             {
@@ -112,7 +117,7 @@ namespace ProyectoFinanzas.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,id_producto,fechaAlta,areaSolicita,precio_anterior,precio_nuevo,status")] DetalleProducto detalleProducto)
+        public ActionResult Edit([Bind(Include = "Id,id_producto,fechaAlta,areaSolicita,precio_anterior,precio_nuevo,status,razon,porcentajeDescuento")] DetalleProducto detalleProducto)
         {
             if (ModelState.IsValid)
             {
