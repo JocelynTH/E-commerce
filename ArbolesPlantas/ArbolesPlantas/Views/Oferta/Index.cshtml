@@ -1,0 +1,114 @@
+﻿@model IEnumerable<ProyectoEcommerce.Models.ofertas>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Ofertas</h2>
+
+<p>
+   
+    @Html.ActionLink("Aplicar precios de venta de productos con oferta Autorizados", "Lista", "Producto")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaAlta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaBaja)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nuevoprecio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.precioactual)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.porcentajeDescuento)
+        </th>
+
+
+        <th>
+            Descripcion
+        </th>
+        <th>
+
+
+
+        </th>
+        <th>
+            Detalles
+        </th>
+        <th>
+            Eliminar
+        </th>
+        <th>
+            Solicitar Autorización
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fechaAlta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fechaBaja)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nuevoprecio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.precioactual)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.porcentajeDescuento)
+        </td>
+
+
+        <td>
+            @Html.DisplayFor(modelItem => item.razon)
+        </td>
+
+        <td>
+            @Html.ActionLink("Cambiar porcentaje", "Edit", new { id = item.Id })
+        </td>
+        <td>
+            @Html.ActionLink("Detalles", "Detalle", new { id = item.Id })
+        </td>
+
+        <td>
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+        </td>
+
+        <td>
+            <button class="btn btn-success btn-lg" onclick="pulsar()">
+                <i class="fa fa-check-square"></i> Solicitar
+            </button>
+
+           
+
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<SCRIPT languaje="JavaScript">
+    function pulsar() {
+
+        alert("Solicitud Enviada");
+    }
+</SCRIPT>

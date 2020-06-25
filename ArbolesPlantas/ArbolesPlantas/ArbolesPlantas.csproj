@@ -517,6 +517,24 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Devolucion\Detalle.cshtml" />
+    <Content Include="Views\Devolucion\Index.cshtml" />
+    <Content Include="Views\Devolucion\Registrodevolucion.cshtml" />
+    <Content Include="Views\Producto\Delete.cshtml" />
+    <Content Include="Views\Producto\Details.cshtml" />
+    <Content Include="Views\Producto\Detallespublicar.cshtml" />
+    <Content Include="Views\Producto\Editarpublicar.cshtml" />
+    <Content Include="Views\Producto\Index.cshtml" />
+    <Content Include="Views\Producto\Lista.cshtml" />
+    <Content Include="Views\Producto\Registrocompra.cshtml" />
+    <Content Include="Views\Producto\Tienda.cshtml" />
+    <Content Include="Views\Oferta\Create.cshtml" />
+    <Content Include="Views\Oferta\Delete.cshtml" />
+    <Content Include="Views\Oferta\Detalle.cshtml" />
+    <Content Include="Views\Oferta\Edit.cshtml" />
+    <Content Include="Views\Oferta\Index.cshtml" />
+    <Content Include="Views\Shared\_Fotter.cshtml" />
+    <Content Include="Views\Shared\_Navigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

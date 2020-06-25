@@ -1,0 +1,81 @@
+﻿@model ProyectoEcommerce.Models.ofertas
+
+@{
+    ViewBag.Title = "Detalle";
+}
+
+<h2>Detalle</h2>
+
+<div>
+    <h4>ofertas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaAlta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaAlta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaBaja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaBaja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipoOferta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipoOferta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.porcentajeDescuento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.porcentajeDescuento)
+        </dd>
+
+       
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nuevoprecio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nuevoprecio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.precioactual)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precioactual)
+        </dd>
+
+        
+    </dl>
+</div>
+<p>
+
+    <a>
+        <div style="margin-top: 45px;">
+            <button type="button" class="btn btn-success btn-lg "> <font size="5" face="Poppins"><i class="fa fa-check-square"></i> @Html.ActionLink("Regresar a lista", "Index")</font></button>
+        </div>
+    </a>
+</p>

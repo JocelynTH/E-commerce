@@ -1,0 +1,41 @@
+﻿@using ProyectoEcommerce.Models;
+@model IEnumerable<ProyectoEcommerce.Models.productos>
+
+@{
+    /**/
+
+
+    ViewBag.Title = "Tienda";
+    var ent = Model;
+}
+
+<h2>Nuestras Ofertas</h2>
+
+
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in ent)
+        {
+            <div class="col-lg-4">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading"> @item.nombre</div>
+                    <div class="panel-body">
+                        <img class="img-responsive" src="@item.Imagen" />
+                        <p>
+
+
+                        </p>
+                        <p>Precio anterior $@item.precio_venta_anterior</p>
+                        <p>45% de descuento</p>
+                        <p><h1> $ @item.precio_venta_nuevo</h1></p>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>

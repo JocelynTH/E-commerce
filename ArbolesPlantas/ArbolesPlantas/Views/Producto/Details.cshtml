@@ -1,0 +1,72 @@
+﻿@model ProyectoEcommerce.Models.productos
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+
+
+
+
+
+
+
+
+
+        <dt>
+            Precio
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precio_venta_nuevo)
+        </dd>
+
+        <dt>
+            TOTAL 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precio_venta_nuevo)
+        </dd>
+
+
+
+
+
+    </dl>
+</div>
+<p>
+    <a>
+        <div style="margin-top: 45px;">
+            <button type="button" class="btn btn-success "> <font size="6" face="Poppins"> @Html.ActionLink("Descripcion", "Edit", new { id = Model.Id })</font></button>
+        </div>
+    </a>
+    <a>
+        <div style="margin-top: 45px;">
+            <button type="button" class="btn btn-success "> <font size="6" face="Poppins">@Html.ActionLink("Solicitar Devolucion", "Registrodevolucion", "Devolucion") </font></button>
+        </div>
+    </a>
+    <a>
+        <div style="margin-top: 45px;">
+            <button type="button" class="btn btn-success "> <font size="6" face="Poppins">@Html.ActionLink("Regresar a ordenes de compra", "Index")</font></button>
+        </div>
+    </a>
+
+    |
+    |
+    
+</p>

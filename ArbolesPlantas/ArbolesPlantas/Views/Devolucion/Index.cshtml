@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ProyectoEcommerce.Models.devolucion>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2> Lista de Solicitudes de Devolución </h2>
+
+<p>
+    
+</p>
+<table class="table">
+    <tr>
+        <th>
+            ID Producto
+        </th>
+
+        <th>
+            Tipo de Devolucion
+        </th>
+
+        <th>
+            Opcion de Devolucion 
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_factura)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.tipoDevolucion)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.opcionDevolucion)
+        </td>
+
+
+        <td>
+
+
+
+            <a>
+                <div style="margin-top: 45px;">
+                    <button type="button" class="btn btn-success btn-lg "> <font size="5" face="Poppins"><i class="fa fa-check-square"></i> @Html.ActionLink("Detalle", "Detalle", new { id = item.Id })</font></button>
+                </div>
+            </a>
+
+
+
+        </td>
+
+
+
+        <td>
+           
+        </td>
+    </tr>
+}
+
+</table>

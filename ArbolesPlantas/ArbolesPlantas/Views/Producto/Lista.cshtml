@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ProyectoEcommerce.Models.productos>
+
+@{
+    ViewBag.Title = "Lista";
+}
+
+<h2>Lista de precios de venta para oferta por Aplicar</h2>
+
+<p>
+   
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+       
+        <th>
+           Descuento%
+        </th>
+        
+        
+        <th>
+           Precio de venta Anterior
+        </th>
+        <th>
+            Nuevo Precio de Venta
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.cantidad)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.precio_venta_anterior)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.precio_venta_nuevo)
+        </td>
+        
+        
+        <td>
+           
+           
+             @Html.ActionLink("Aplicar", "Detallespublicar", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
